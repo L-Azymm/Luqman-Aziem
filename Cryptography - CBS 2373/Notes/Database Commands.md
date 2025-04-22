@@ -10,10 +10,23 @@ sqlite3 mydb.db            -- Open SQLite database
 
 ## Database Management
 
+- Create new database
+
 ```sql
-CREATE DATABASE dbname;    -- Create new database
-SHOW DATABASES;            -- List databases
+CREATE DATABASE dbname;    
+```
+
+- List databases
+
+```sql
+SHOW DATABASES;            
+```
+
+```sql
 USE dbname;                -- Switch to database
+```
+
+```sql
 DROP DATABASE dbname;      -- Delete a database
 ```
 
@@ -24,9 +37,17 @@ CREATE TABLE tablename (
   id INT PRIMARY KEY,
   name VARCHAR(50)
 );                         -- Create table
+```
 
+```sql
 SHOW TABLES;               -- List tables
+```
+
+```sql
 DESCRIBE tablename;        -- Show table structure
+```
+
+```sql
 DROP TABLE tablename;      -- Delete table
 ```
 
@@ -34,7 +55,13 @@ DROP TABLE tablename;      -- Delete table
 
 ```sql
 INSERT INTO tablename (id, name) VALUES (1, 'Alice');  -- Add data
+```
+
+```
 SELECT * FROM tablename;                               -- Get all data
+```
+
+```
 UPDATE tablename SET name = 'Bob' WHERE id = 1;        -- Edit data
 DELETE FROM tablename WHERE id = 1;                    -- Remove data
 ```
@@ -51,9 +78,14 @@ LIMIT 10;                                       -- Limit results
 
 ```sql
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'pass';
-GRANT ALL PRIVILEGES ON dbname.* TO 'user'@'localhost';
-FLUSH PRIVILEGES;
+```
 
+```sql
+GRANT ALL PRIVILEGES ON dbname.* TO 'user'@'localhost';
+```
+
+```sql
+FLUSH PRIVILEGES;
 ```
 
 ## Others

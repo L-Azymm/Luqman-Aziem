@@ -154,14 +154,9 @@ This lab showed how poor cryptographic practices (empty passwords, weak hashes, 
 
 ---
 
-## GitHub Submission
-- Upload this `README.md` to your GitHub repo.
-- Include all screenshots and commands.
+
 
 ---
 
-## Demo/Debrief Checklist
-- ✅ Show cracked password(s)
-- ✅ Show vulnerable DB access
-- ✅ Explain issues + propose fixes
+
 

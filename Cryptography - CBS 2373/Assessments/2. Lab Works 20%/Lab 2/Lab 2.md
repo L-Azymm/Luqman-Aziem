@@ -1,4 +1,4 @@
-# Lab 2: Cryptographic Attacks - Cracking Weak Password Hashes and Exploiting Poor Authentication in Databases
+# Cryptographic Attacks - Cracking Weak Password Hashes & Exploiting Poor Authentication in Databases
 
 
 ---
@@ -12,6 +12,19 @@
 
 ---
 
+## Tools Used
+
+| Tool       | Use                          |
+|------------|-------------------------------|
+| `nmap`     | Port scanning & service detection |
+| `nc`       | Quick port scan                |
+| `mysql`    | Access and enumeration         |
+| `hashid`   | Identify hash types            |
+| `john`     | Cracking password hashes       |
+| `hashcat`  | GPU-based hash cracking        |
+| `Wireshark`| Network traffic analysis       |
+
+---
 ## Lab Setup
 
 - **Attacker Machine**: Kali Linux
@@ -135,17 +148,7 @@ Captured MySQL login traffic → No SSL → Username and hashed password transmi
 
 ---
 
-## Tools Summary
 
-| Tool       | Use                          |
-|------------|-------------------------------|
-| `nmap`     | Port scanning & service detection |
-| `nc`       | Quick port scan                |
-| `mysql`    | Access and enumeration         |
-| `hashid`   | Identify hash types            |
-| `john`     | Cracking password hashes       |
-| `hashcat`  | GPU-based hash cracking        |
-| `Wireshark`| Network traffic analysis       |
 
 ---
 

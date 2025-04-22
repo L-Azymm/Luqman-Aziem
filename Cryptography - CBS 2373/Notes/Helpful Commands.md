@@ -1,14 +1,18 @@
-# Finding info in files
+# 🔍 Finding Info in Files
 
-Using `grep`
+## 🛠 Using `grep` with Help Commands
 
-- -A<n> = list <n> after <target info>
-- -B<n> = list <n> before <target info>
-- -C<n> = list <n> both after & before <target info>
+- `-A<n>` → Show **<n> lines After** the match <Keyword>
+- `-B<n>` → Show **<n> lines Before** the match <Keyword>
+- `-C<n>` → Show **<n> lines Before and After** the match <Keyword>
 
-<tools> -h or --help | grep <target info> -A<n> or -B<n>
+---
 
-Example:
+## 📌 Command Format
+
+```sh
+<tool> -h or --help | grep <keyword> -A<n>
+```
 
 ```sh
 nmap -h | grep OUTPUT -A10

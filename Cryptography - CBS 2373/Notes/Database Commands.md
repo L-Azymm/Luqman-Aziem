@@ -2,10 +2,22 @@
 
 ## 🔐 Accessing the Database
 
-```sql
-mysql -u root -p           -- Login to MySQL
-psql -U postgres           -- Login to PostgreSQL
-sqlite3 mydb.db            -- Open SQLite database
+- Login to MySQL
+
+```sh
+mysql -u root -p           
+```
+
+- Login to PostgreSQL
+
+```sh
+psql -U postgres           
+```
+
+- Open SQLite database
+
+```sh
+sqlite3 mydb.db            
 ```
 
 ## Database Management
@@ -22,56 +34,91 @@ CREATE DATABASE dbname;
 SHOW DATABASES;            
 ```
 
-```sql
-USE dbname;                -- Switch to database
-```
+- Switch to database
 
 ```sql
-DROP DATABASE dbname;      -- Delete a database
+USE dbname;                
+```
+
+- Delete a database
+
+```sql
+DROP DATABASE dbname;      
 ```
 
 ## Table Management
+
+- Create table
 
 ```sql
 CREATE TABLE tablename (
   id INT PRIMARY KEY,
   name VARCHAR(50)
-);                         -- Create table
+);                         
 ```
 
-```sql
-SHOW TABLES;               -- List tables
-```
+- List tables
 
 ```sql
-DESCRIBE tablename;        -- Show table structure
+SHOW TABLES;              
 ```
 
+- Show table structure
+
 ```sql
-DROP TABLE tablename;      -- Delete table
+DESCRIBE tablename;       
+```
+
+- Delete table
+
+```sql
+DROP TABLE tablename;      
 ```
 
 ## Data Operations
 
+- Add data
+
 ```sql
-INSERT INTO tablename (id, name) VALUES (1, 'Alice');  -- Add data
+INSERT INTO tablename (id, name) VALUES (1, 'Alice');  
 ```
 
-```
-SELECT * FROM tablename;                               -- Get all data
+- Get all data
+
+```sql
+SELECT * FROM tablename;                               
 ```
 
+- Edit data
+
+```sql
+UPDATE tablename SET name = 'Bob' WHERE id = 1;        
 ```
-UPDATE tablename SET name = 'Bob' WHERE id = 1;        -- Edit data
-DELETE FROM tablename WHERE id = 1;                    -- Remove data
+
+- Remove data
+
+```sql
+DELETE FROM tablename WHERE id = 1;                    
 ```
 
 ## Query Helpers
 
+- Search by pattern
+
 ```sql
-SELECT * FROM tablename WHERE name LIKE 'A%';   -- Search by pattern
-ORDER BY name ASC;                              -- Sort results
-LIMIT 10;                                       -- Limit results
+SELECT * FROM tablename WHERE name LIKE 'A%';   
+```
+
+- Sort results
+
+```sql
+ORDER BY name ASC;                              
+```
+
+- Limit results
+
+```sql
+LIMIT 10;                                       
 ```
 
 ## User Management (MySQL)
@@ -90,9 +137,20 @@ FLUSH PRIVILEGES;
 
 ## Others
 
-```sql
-SHOW COLUMNS FROM tablename;   -- Show column details
-ALTER TABLE tablename ADD COLUMN age INT;
-ALTER TABLE tablename DROP COLUMN age;
+- Show column details
 
+```sql
+SHOW COLUMNS FROM tablename;  
+```
+
+- Adding Column
+
+```sql
+ALTER TABLE tablename ADD COLUMN age INT;
+```
+
+- Removing a column
+
+```sql
+ALTER TABLE tablename DROP COLUMN age;
 ```

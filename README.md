@@ -1,6 +1,6 @@
 # Cryptography Class 
 
-Welcome to my Cryptography coursework repository. This includes all assignments, lab works, tests, and personal notes for the CBS 23XX subject.
+Welcome to my Cryptography coursework repository. This includes all assignments, lab works, tests, and personal notes for the CBS-2373 subject.
 
 ---
 

@@ -2,9 +2,9 @@
 
 ## 🛠 Using `grep` with Help Commands
 
-- `-A<n>` → Show **<n> lines After** the match <Keyword>
-- `-B<n>` → Show **<n> lines Before** the match <Keyword>
-- `-C<n>` → Show **<n> lines Before and After** the match <Keyword>
+- `-A<n>` → Show **n** lines **After** the matched **keyword**
+- `-B<n>` → Show **n** lines **Before** the matched **keyword**
+- `-C<n>` → Show **n** lines **Before and After** the matched **keyword***
 
 ---
 
@@ -16,7 +16,7 @@
 
 ## Example
 
-- Nmap 
+- Nmap
 
 ```sh
 nmap -h | grep OUTPUT -A10

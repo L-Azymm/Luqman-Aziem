@@ -14,9 +14,15 @@
 <tool> -h or --help | grep <keyword> -A<n>
 ```
 
+## Example
+
+- Nmap 
+
 ```sh
 nmap -h | grep OUTPUT -A10
 ```
+
+- MySQL
 
 ```sh
 mysql --help | grep OUTPUT -A10

@@ -22,7 +22,7 @@
 | `OpenSSL`   | Check supported SSL/TLS           |
 | `nmap`      | Port scanning & service detection |
 | `nc`        | Quick port scan                   |
-| `mysql`     | Access and enumeration            |
+| `MySQL`     | Access and enumeration            |
 | `hashid`    | Identify hash types               |
 | `john`      | Cracking password hashes          |
 | `hashcat`   | GPU-based hash cracking           |
@@ -49,7 +49,7 @@ netdiscover
 - Scans your local subnet for live devices.
 - Helps you find IPs and MAC addresses </br> </br> </br>
 
-![picture](assets/scans/netdiscover.png)
+![picture](Assets/Scans/netdiscover.png)
 
 ---
 
@@ -63,9 +63,9 @@ nmap -sS -sV -p- <Target IP>
 - `-sV`: Service version detection
 - `-p-`: Scan all 65535 TCP ports
 
-⚠️ Since this command run scans on **all ports** it will require a long time to finish
+⚠️ Since this command run Scans on **all ports** it will require a long time to finish
 
-![picture](assets/scans/nmap-scan1.png)
+![picture](Assets/Scans/nmap-scan1.png)
 
 ---
 
@@ -77,7 +77,7 @@ So instead we shortlist the ports that are commonly used or just the one we want
 sudo nmap -sS -sV -p 21,22,23,25,80,111,139,445,512-515,3306,5432,5900,6000 192.168.204.147
 ```
 
-![picture](assets/scans/nmap-scan2.png)
+![picture](Assets/Scans/nmap-scan2.png)
 
 Discovered port **3306** open → MySQL service detected.
 
@@ -94,7 +94,7 @@ nc -zv <Target IP> <ports>
 
 Not stealthy (full TCP handshake), better for basic connectivity check.
 
-![picture](assets/scans/netcat-scan.png)
+![picture](Assets/Scans/netcat-scan.png)
 
 <br/>
 
@@ -116,7 +116,7 @@ openssl s_client -connect <target IP>:3306 -quiet
 
 - `-quiet` : Suppresses verbose output (e.g., certificate details), showing only critical errors or success messages.
 
-![picture](assets/mysql/openssl-check.png)
+![picture](Assets/MySQL/openssl-check.png)
 
 ---
 
@@ -133,12 +133,12 @@ It tests whether the target service (e.g., MySQL) supports SSL/TLS encryption on
 ### **1.3 Connection Attempt** 🔌
 
 ```bash
-mysql -h <Target IP> -u root
+MySQL -h <Target IP> -u root
 ```
 
 Running this command will attempt a connection to the MySQL service
 
-![picture](assets/mysql/mysql-error.png)
+![picture](Assets/MySQL/MySQL-error.png)
 
 <br>
 
@@ -169,16 +169,16 @@ But we can bypass/fix this by adding this at the end of the command
 Running this command will result in a success connection to MySQL
 
 ```sh
-mysql -h 192.168.204.147 -u root --ssl=0
+MySQL -h 192.168.204.147 -u root --ssl=0
 ```
 
 OR
 
 ```sh
-mysql -h 192.168.204.147 -u root --ssl=DISABLED
+MySQL -h 192.168.204.147 -u root --ssl=DISABLED
 ```
 
-![picture](assets/mysql/mysql-successful.png)
+![picture](Assets/MySQL/MySQL-successful.png)
 
 💥We have successfully entered the **Database** of **MySQL** service 💥
 
@@ -200,7 +200,7 @@ mysql -h 192.168.204.147 -u root --ssl=DISABLED
 1. Enter MySQL database
 
 ```sql
-USE mysql
+USE MySQL
 ```
 
 2. Lets see what MySQL contents
@@ -209,7 +209,7 @@ USE mysql
 SHOW TABLES;
 ```
 
-![picture](assets/DB-MySQL/mysql-table.png)
+![picture](Assets/DB-MySQL/MySQL-table.png)
 
 3. Find the required info
 
@@ -222,10 +222,10 @@ OR
 To direcly show the required info from MySQL **user** table
 
 ```sql
-SELECT * FROM mysql.user;
+SELECT * FROM MySQL.user;
 ```
 
-![picture](assets/DB-MySQL/mysql-host-user-password.png)
+![picture](Assets/DB-MySQL/MySQL-host-user-password.png)
 
 ---
 
@@ -245,7 +245,7 @@ After obtainin the oh sweet data from MySQL database, you can see that the **use
 
 ### ⭐ ❔Question: Is no password a cryptographic failure? ❔ ⭐ 🤔
 
-**Yes.** It completely bypasses cryptographic authentication. A secure system must require password hashing + proper access control.
+**Yes.** It completely bypasses cryptographic authentication. A secure system must require password Hashing + proper access control.
 
 ---
 
@@ -272,7 +272,7 @@ Now that we're in the database, Lets start digging ⛏️
 SHOW TABLES;
 ```
 
-![picture](assets/DB-dvwa/dvwa-table.png)
+![picture](Assets/DB-DVWA/dvwa-table.png)
 
 3. Find the required info
 
@@ -286,7 +286,7 @@ OR
 SELECT * FROM dvwa.users;
 ```
 
-![picture](assets/DB-dvwa/dvwa-users-info.png)
+![picture](Assets/DB-DVWA/dvwa-users-info.png)
 
 ---
 
@@ -306,7 +306,7 @@ Lets choose Bob/Smithy as our target, why? Cause I feel like doing so 🤣
 
 The extracted hash from Bob:
 
-![picture](bob-hash.png)
+![picture](Assets/hash/bob-hash.png)
 
 ```text
 5f4dcc3b5aa765d61d8327deb882cf99
@@ -325,7 +325,7 @@ We can use:
 hashid '5f4dcc3b5aa765d61d8327deb882cf99'
 ```
 
-![picture](assets/hash/hashid.png)
+![picture](Assets/hash/hashid.png)
 
 We can see that it show many posibilities of hash, so we need to check the characteristic of the hash we extracted
 
@@ -367,7 +367,7 @@ First off, save the hash to a file
 echo 5f4dcc3b5aa765d61d8327deb882cf99 > hash.txt
 ```
 
-![picture](assets/hash/save-hash.png)
+![picture](Assets/hash/save-hash.png)
 
 ---
 
@@ -377,7 +377,7 @@ echo 5f4dcc3b5aa765d61d8327deb882cf99 > hash.txt
 john --wordlist=<wordlist> hash.txt
 ```
 
-![picture](assets/hash/failed-john.png)
+![picture](Assets/hash/failed-john.png)
 
 ---
 
@@ -401,7 +401,7 @@ This can be solved/fixed by adding the correct/wanted format to the command
 john --format=raw-md5 --wordlist=<wordlist> hash.txt
 ```
 
-![picture](assets/hash/success-john.png)
+![picture](Assets/hash/success-john.png)
 
 By using this command, we can see that the cracking was successful, thus showing us the treasure behind the hash
 
@@ -505,10 +505,10 @@ rm ~/.hashcat/hashcat.potfile
 3. Add a display filter
 
 ```bash
-mysql || tcp.port == 3306
+MySQL || tcp.port == 3306
 ```
 
-![picture]()
+![picture](Assets/Wireshark/Wireshark-overview.png)
 
 4. Start Capturing
 
@@ -519,10 +519,10 @@ mysql || tcp.port == 3306
 1. Open a second terminal and log in without SSL
 
 ```sh
-mysql -h 192.168.204.147 -u root --ssl=0
+MySQL -h 192.168.204.147 -u root --ssl=0
 ```
 
-![picture](assets/wireshark/mysql-login.png)
+![picture](Assets/Wireshark/MySQL-login.png)
 
 ---
 
@@ -532,7 +532,7 @@ mysql -h 192.168.204.147 -u root --ssl=0
 
 2. Expand MySQL Protocol › Login Request.
 
-![picture](assets/wireshark/wireshark-username-root.png)
+![picture](Assets/Wireshark/Wireshark-username-root.png)
 
 - You cann see the username: root
 - Password/Client Auth Plugin: `Blank`

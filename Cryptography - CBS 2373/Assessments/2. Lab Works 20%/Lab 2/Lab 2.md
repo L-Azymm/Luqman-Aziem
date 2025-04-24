@@ -42,6 +42,17 @@
 <br/> <br>
 
 ---
+
+## Checkpoints 🚩
+
+- [Task 1: Service Enumeration and Initial Access 🔍](#task-1-service-enumeration-and-initial-access-)
+- [Task 2: Enumeration of Users and Authentication Weakness 💎](#task-2-enumeration-of-users-and-authentication-weakness-)
+- [Task 3: Password Hash Discovery and Hash Identification 🔑](#task-3-password-hash-discovery-and-hash-identification-)
+- [Task 4: Offline Hash Cracking 🔓](#task-4-offline-hash-cracking-)
+- [Task 5: Cryptographic Analysis and Mitigation 🧩](#task-5-cryptographic-analysis-and-mitigation-)
+- [Task 6: Wireshark Analysis 🦈](#task-6-wireshark-analysis-)
+
+---
 ---
 
 ## **Task 1: Service Enumeration and Initial Access** 🔍
@@ -278,7 +289,7 @@ After obtainin the oh sweet data from MySQL database, you can see that the **use
 ---
 ---
 
-## Task 3: Password Hash Discovery and Hash Identification
+## Task 3: Password Hash Discovery and Hash Identification 🔑
 
 Now that we know MySQL don't have anypassword, lets find a Databasewhich has one, in this case **`DVWA`** or `Damn Vulnerable Web Application`
 
@@ -410,7 +421,7 @@ hash-identifer
 ---
 ---
 
-## **Task 4: Offline Hash Cracking** 🔓
+## Task 4: Offline Hash Cracking 🔓
 
 Now we arrived a the best part, craking it down
 
@@ -547,7 +558,7 @@ rm ~/.hashcat/hashcat.potfile
 ---
 ---
 
-## **Task 5: Cryptographic Analysis and Mitigation** 🧩
+## Task 5: Cryptographic Analysis and Mitigation 🧩
 
 ### Issues Found 😱
 
@@ -566,7 +577,7 @@ rm ~/.hashcat/hashcat.potfile
 ---
 ---
 
-## **Task 6: Wireshark Analysis** 🦈
+## Task 6: Wireshark Analysis 🦈
 
 ### ✅ **6.1 Heating up the oven**
 

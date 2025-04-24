@@ -140,7 +140,7 @@ MySQL -h <Target IP> -u root
 
 Running this command will attempt a connection to the MySQL service
 
-![picture](Assets/MySQL/MySQL-error.png)
+![picture](Assets/MySQL/mysql-error.png)
 
 <br>
 
@@ -180,7 +180,7 @@ OR
 MySQL -h 192.168.204.147 -u root --ssl=DISABLED
 ```
 
-![picture](Assets/MySQL/MySQL-successful.png)
+![picture](Assets/MySQL/mysql-successful.png)
 
 💥We have successfully entered the **Database** of **MySQL** service 💥
 
@@ -211,7 +211,7 @@ USE MySQL
 SHOW TABLES;
 ```
 
-![picture](Assets/DB-MySQL/MySQL-table.png)
+![picture](Assets/DB-MySQL/mysql-table.png)
 
 3. Find the required info
 
@@ -227,7 +227,7 @@ To direcly show the required info from MySQL **user** table
 SELECT * FROM MySQL.user;
 ```
 
-![picture](Assets/DB-MySQL/MySQL-host-user-password.png)
+![picture](Assets/DB-MySQL/mysql-host-user-password.png)
 
 ---
 
@@ -308,7 +308,7 @@ Lets choose Bob/Smithy as our target, why? Cause I feel like doing so 🤣
 
 The extracted hash from Bob:
 
-![picture](Assets/hash/bob-hash.png)
+![picture](Assets/Hash/bob-hash.png)
 
 ```text
 5f4dcc3b5aa765d61d8327deb882cf99
@@ -327,7 +327,7 @@ We can use:
 hashid '5f4dcc3b5aa765d61d8327deb882cf99'
 ```
 
-![picture](Assets/hash/hashid.png)
+![picture](Assets/Hash/hashid.png)
 
 We can see that it show many posibilities of hash, so we need to check the characteristic of the hash we extracted
 
@@ -521,7 +521,7 @@ MySQL || tcp.port == 3306
 MySQL -h 192.168.204.147 -u root --ssl=0
 ```
 
-![picture](Assets/Wireshark/MySQL-login.png)
+![picture](Assets/Wireshark/mysql-login.png)
 
 ---
 

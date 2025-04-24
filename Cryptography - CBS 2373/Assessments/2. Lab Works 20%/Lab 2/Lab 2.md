@@ -4,7 +4,7 @@
 
 <br/>
 
-## **Objectives**
+## **Objectives** 🎯
 
 1. Identify and exploit cryptographic weaknesses in database authentication.
 2. Perform offline hash cracking on discovered password hashes.
@@ -15,7 +15,7 @@
 
  <br/>
 
-## **Ingredients Needed**
+## **Ingredients Needed** 🧰
 
 | Tool        | Use                               |
 | ----------- | --------------------------------- |
@@ -30,16 +30,17 @@
 
 <br/>
 
-## **Lab Setup </br>**
+## **Lab Setup ** 🖥️⚙️
 
 - **Attacker Machine**: Kali Linux
 - **Target**: Vulnerable machine running an exposed database service</br></br>
 
 ---
+---
 
-## **Task 1: Service Enumeration and Initial Access**
+## **Task 1: Service Enumeration and Initial Access** 🔍
 
-### **1.1 Finding the Target IP**
+### **1.1 Finding the Target IP** 🛰️
 
 ```bash
 netdiscover
@@ -47,6 +48,8 @@ netdiscover
 
 - Scans your local subnet for live devices.
 - Helps you find IPs and MAC addresses </br> </br> </br>
+
+![picture](assets/scans/netdiscover.png)
 
 ---
 
@@ -62,15 +65,19 @@ nmap -sS -sV -p- <Target IP>
 
 ⚠️ Since this command run scans on **all ports** it will require a long time to finish
 
+![picture](assets/scans/nmap-scan1.png)
+
 ---
 
 <br>
 
-So instead we shortlist the ports that ae commonly used or jut the one we want
+So instead we shortlist the ports that are commonly used or just the one we want
 
 ```sh
 sudo nmap -sS -sV -p 21,22,23,25,80,111,139,445,512-515,3306,5432,5900,6000 192.168.204.147
 ```
+
+![picture](assets/scans/nmap-scan2.png)
 
 Discovered port **3306** open → MySQL service detected.
 
@@ -87,11 +94,13 @@ nc -zv <Target IP> <ports>
 
 Not stealthy (full TCP handshake), better for basic connectivity check.
 
+![picture](assets/scans/netcat-scan.png)
+
 <br/>
 
 ---
 
-### 1.2 OpenSSL Check for Encryption
+### 1.2 OpenSSL Check for Encryption 🔑
 
 ```bash
 openssl s_client -connect <target IP>:3306 -quiet
@@ -101,13 +110,17 @@ openssl s_client -connect <target IP>:3306 -quiet
 - `s_client` : A subcommand used to act as an SSL/TLS client and connect to a remote server
 - `-connect <target IP>:3306` : Specifies the target IP and port to test (here, port 3306 for MySQL).
 
+---
+
 #### Optional
 
 - `-quiet` : Suppresses verbose output (e.g., certificate details), showing only critical errors or success messages.
 
+![picture](assets/mysql/openssl-check.png)
+
 ---
 
-### Results
+### Results 📊
 
 It tests whether the target service (e.g., MySQL) supports SSL/TLS encryption on port 3306.
 
@@ -117,7 +130,7 @@ It tests whether the target service (e.g., MySQL) supports SSL/TLS encryption on
 
 ---
 
-### **1.3 Connection Attempt**
+### **1.3 Connection Attempt** 🔌
 
 ```bash
 mysql -h <Target IP> -u root
@@ -125,11 +138,13 @@ mysql -h <Target IP> -u root
 
 Running this command will attempt a connection to the MySQL service
 
+![picture](assets/mysql/mysql-error.png)
+
 <br>
 
 ---
 
-### **⚠️ Problem Encountered ⚠️**
+### **⚠️ Problem Encountered ⚠️** 😖
 
 ⚠️ Running this command will result in error
 
@@ -139,10 +154,9 @@ This is due to the mismatch in SSL/TLS versions
 
 ---
 
-### ✅ **Solution** ✅
+### ✅ **Solution** ✅ 🛠️
 
-But we can bypas
-s/fix this by adding this at the end of the command
+But we can bypass/fix this by adding this at the end of the command
 
 - `--ssl=0`
 
@@ -164,6 +178,8 @@ OR
 mysql -h 192.168.204.147 -u root --ssl=DISABLED
 ```
 
+![picture](assets/mysql/mysql-successful.png)
+
 💥We have successfully entered the **Database** of **MySQL** service 💥
 
 <br/>
@@ -172,7 +188,12 @@ mysql -h 192.168.204.147 -u root --ssl=DISABLED
 
 <br/>
 
-## Task 2: Enumeration of Users and Authentication Weakness
+---
+---
+
+## Task 2: Enumeration of Users and Authentication Weakness 🔎
+
+---
 
 ### Enumeration
 
@@ -188,6 +209,8 @@ USE mysql
 SHOW TABLES;
 ```
 
+![picture](assets/DB-MySQL/mysql-table.png)
+
 3. Find the required info
 
 ```sql
@@ -196,19 +219,23 @@ SELECT host, user, password FROM user;
 
 OR
 
+To direcly show the required info from MySQL **user** table
+
 ```sql
 SELECT * FROM mysql.user;
 ```
 
-To direcly show the required info from MySQL **user** table
+![picture](assets/DB-MySQL/mysql-host-user-password.png)
 
 ---
 
-### 🔴 Result 🔴
+### 🔴 Result 🔴 🟥
 
-After obtainin the oh sweet data from MySQL database, you can see that the **users** dont have any **password configured**, allowing anyone to gain access to the database, which is worsen by the fact that it can be entered by **any hosts**
+After obtainin the oh sweet data from MySQL database, you can see that the **users** don't have any **password configured**, allowing anyone to gain access to the database, which is worsen by the fact that it can be entered by **any hosts**
 
-**TLDR**
+---
+
+### **TLDR**
 
 - Empty space in `Password` column means no password configured
 - `%` symbol mean that it can be entered from any IPs
@@ -216,7 +243,7 @@ After obtainin the oh sweet data from MySQL database, you can see that the **use
 
 ---
 
-### ⭐ ❔Question: Is no password a cryptographic failure? ❔ ⭐
+### ⭐ ❔Question: Is no password a cryptographic failure? ❔ ⭐ 🤔
 
 **Yes.** It completely bypasses cryptographic authentication. A secure system must require password hashing + proper access control.
 
@@ -224,9 +251,12 @@ After obtainin the oh sweet data from MySQL database, you can see that the **use
 
 <br/>
 
+---
+---
+
 ## Task 3: Password Hash Discovery and Hash Identification
 
-Now that we know MySQL dont have anypassword, lets find a Databasewhich has one, in this case **`DVWA`** or `Damn Vulnerable Web Application`
+Now that we know MySQL don't have anypassword, lets find a Databasewhich has one, in this case **`DVWA`** or `Damn Vulnerable Web Application`
 
 1. Enter DVWA database
 
@@ -242,6 +272,8 @@ Now that we're in the database, Lets start digging ⛏️
 SHOW TABLES;
 ```
 
+![picture](assets/DB-dvwa/dvwa-table.png)
+
 3. Find the required info
 
 ```sql
@@ -254,11 +286,13 @@ OR
 SELECT * FROM dvwa.users;
 ```
 
+![picture](assets/DB-dvwa/dvwa-users-info.png)
+
 ---
 
-### 🔴 Results 🔴
+### 🔴 Results 🔴 🟥
 
-From the picture, we can see that the users from dvwa has passwords configure unlike MySQL, but you dont understand it, do you?
+From the picture, we can see that the users from dvwa has passwords configure unlike MySQL, but you don't understand it, do you?
 
 This is because the password is encrypted, unabling us from seeing the real password
 
@@ -266,15 +300,19 @@ Now that you understands, lets move on
 
 ---
 
-### 3.1 Extract the Hash
+### 3.1 Extract the Hash 🗂️
 
 Lets choose Bob/Smithy as our target, why? Cause I feel like doing so 🤣
 
-The extracted hashes:
+The extracted hash from Bob:
+
+![picture](bob-hash.png)
 
 ```text
 5f4dcc3b5aa765d61d8327deb882cf99
 ```
+
+---
 
 ### 3.2 Identify the Hash
 
@@ -287,6 +325,8 @@ We can use:
 hashid '5f4dcc3b5aa765d61d8327deb882cf99'
 ```
 
+![picture](assets/hash/hashid.png)
+
 We can see that it show many posibilities of hash, so we need to check the characteristic of the hash we extracted
 
 - 32 characters
@@ -294,12 +334,14 @@ We can see that it show many posibilities of hash, so we need to check the chara
 - It is just the 32‑char string—no \*, no $, no colons
 - Typically lowercase (uppercase works too, but apps usually store lowercase)
 
+---
+
 ### Rule of thumb 👍
 
 | Characteristic                              | Hash                                  |
 | ------------------------------------------- | ------------------------------------- |
 | 32‑char hex hash from an old PHP/MySQL app? | → assume MD5.                         |
-| Starts with \* and 40 hex chars?            | → MySQL 4.1+ SHA‑1 (\*94BDCE...).     |
+| Starts with and 40 hex chars?            | → MySQL 4.1+ SHA‑1 (94BDCE...).     |
 | Starts with $1$, $6$, etc.?                 | → Linux shadow hashes (MD5, SHA‑512). |
 | Upper‑case 32‑char hex split by :?          | → LM/NTLM.                            |
 
@@ -312,7 +354,10 @@ We can see that it show many posibilities of hash, so we need to check the chara
 
 <br/>
 
-## **Task 4: Offline Hash Cracking**
+---
+---
+
+## **Task 4: Offline Hash Cracking** 🔓
 
 Now we arrived a the best part, craking it down
 
@@ -322,11 +367,17 @@ First off, save the hash to a file
 echo 5f4dcc3b5aa765d61d8327deb882cf99 > hash.txt
 ```
 
+![picture](assets/hash/save-hash.png)
+
+---
+
 ### 4.1 Using John the Ripper
 
 ```bash
 john --wordlist=<wordlist> hash.txt
 ```
+
+![picture](assets/hash/failed-john.png)
 
 ---
 
@@ -336,11 +387,11 @@ When running the code above, you will encounter the error
 
 - `Warning: detected hash type "LM", but the string is also recognized as "dynamic=md5($p)"`
 
-This is caused by the hash being MD5, and we didnt specify the format we want to use, so it wouldnt know which format to use and would defaulted to using LM format to crack it
+This is caused by the hash being **MD5**, and we didn't specify the format we want to use, so it wouldnt know which format to use and would **defaulted** to using **LM** format to crack it
 
 ---
 
-### ✅ Solution ✅
+### ✅ Solution ✅ 🛠️
 
 This can be solved/fixed by adding the correct/wanted format to the command
 
@@ -350,9 +401,13 @@ This can be solved/fixed by adding the correct/wanted format to the command
 john --format=raw-md5 --wordlist=<wordlist> hash.txt
 ```
 
+![picture](assets/hash/success-john.png)
+
 By using this command, we can see that the cracking was successful, thus showing us the treasure behind the hash
 
 - Cracked password: `password`
+
+---
 
 ### 4.2 Using Hashcat (alternative)
 
@@ -363,13 +418,15 @@ hashcat -m 0 -a 0 hash.txt password.txt
 - `-m 0`: for Raw MD5 Crypt
 - `-a 0`: Dictionary attack
 
----
-
-### Additional Information
+![picture]()
 
 ---
 
-### **To view cracked hash**
+### Additional Information 📃
+
+---
+
+### **To view cracked hash** 🪟
 
 John the Ripper
 
@@ -379,6 +436,10 @@ John the Ripper
 john --show hash.txt
 ```
 
+![picture]()
+
+---
+
 Hashcat
 
 - Hashcat stores cracked hashes in the hashcat.potfile
@@ -387,7 +448,11 @@ Hashcat
 hashcat -m 0 -a 0 --show hash.txt
 ```
 
-### **To clear stored cracked hash**
+![picture]()
+
+---
+
+### **To clear stored cracked hash** 🗑️
 
 John the Ripper
 
@@ -397,6 +462,10 @@ John the Ripper
 rm ~/.john/john.pot
 ```
 
+![picture]()
+
+---
+
 Hashcat
 
 - To clear the cracked hashes from the hashcat.potfile, delete the file:
@@ -405,27 +474,31 @@ Hashcat
 rm ~/.hashcat/hashcat.potfile
 ```
 
----
+![picture]()
 
 ---
+---
 
-## **Task 5: Cryptographic Analysis and Mitigation**
+## **Task 5: Cryptographic Analysis and Mitigation** 🧩
 
-### Issues Found
+### Issues Found 😱
 
 - No password on some accounts
 - Weak password hashes (MD5 Crypt)
 - Potential plaintext transmission
 
-### Solutions
+### Solutions 💡
 
 - Enforce strong password policy
 - Use secure hash functions (e.g., bcrypt, Argon2)
 - Enable SSL/TLS for database communication
 
-### **Task 6: Wireshark Analysis**
+---
+---
 
-**6.1 Heating up the oven**
+## **Task 6: Wireshark Analysis** 🦈
+
+### **6.1 Heating up the oven**
 
 1. Fire up `Wireshark`
 2. Choose the interface that oyu want to capture ( Example: eth0 )
@@ -435,9 +508,13 @@ rm ~/.hashcat/hashcat.potfile
 mysql || tcp.port == 3306
 ```
 
+![picture]()
+
 4. Start Capturing
 
-**6.2 Generate Traffic**
+---
+
+### **6.2 Generate Traffic**
 
 1. Open a second terminal and log in without SSL
 
@@ -445,11 +522,20 @@ mysql || tcp.port == 3306
 mysql -h 192.168.204.147 -u root --ssl=0
 ```
 
-**6.3 Stop capture & locate the login packet**
+![picture](assets/wireshark/mysql-login.png)
+
+---
+
+### **6.3 Stop capture & locate the login packet**
 
 1. Look for a packet labeled “Login Request” or just the first packet from client → server after SYN/ACK
 
 2. Expand MySQL Protocol › Login Request.
+
+![picture](assets/wireshark/wireshark-username-root.png)
+
+- You cann see the username: root
+- Password/Client Auth Plugin: `Blank`
 
 ---
 
@@ -458,5 +544,4 @@ mysql -h 192.168.204.147 -u root --ssl=0
 This lab showed how poor cryptographic practices (empty passwords, weak hashes, no SSL) can easily be exploited. Stronger authentication, hashing, and encrypted communication are essential to secure systems.
 
 ---
-
 ---

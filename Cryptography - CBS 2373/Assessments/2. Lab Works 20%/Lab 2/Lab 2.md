@@ -369,7 +369,7 @@ First off, save the hash to a file
 echo 5f4dcc3b5aa765d61d8327deb882cf99 > hash.txt
 ```
 
-![picture](Assets/hash/save-hash.png)
+![picture](Assets/Hash/save-hash.png)
 
 ---
 
@@ -379,7 +379,7 @@ echo 5f4dcc3b5aa765d61d8327deb882cf99 > hash.txt
 john --wordlist=<wordlist> hash.txt
 ```
 
-![picture](Assets/hash/failed-john.png)
+![picture](Assets/Hash/John/failed-john.png)
 
 ---
 
@@ -403,7 +403,7 @@ This can be solved/fixed by adding the correct/wanted format to the command
 john --format=raw-md5 --wordlist=<wordlist> hash.txt
 ```
 
-![picture](Assets/hash/success-john.png)
+![picture](Assets/Hash/John/success-john.png)
 
 By using this command, we can see that the cracking was successful, thus showing us the treasure behind the hash
 
@@ -420,7 +420,8 @@ hashcat -m 0 -a 0 hash.txt password.txt
 - `-m 0`: for Raw MD5 Crypt
 - `-a 0`: Dictionary attack
 
-![picture]()
+![picture](Assets/Hash/Hashcat/hash-success1.png)
+![picture](Assets/Hash/Hashcat/hash-success2.png)
 
 ---
 
@@ -435,10 +436,10 @@ John the Ripper
 - John stores the cracked hashes in the john.pot file
 
 ```sh
-john --show hash.txt
+cat ~/.john/john.pot
 ```
 
-![picture]()
+![picture](Assets/Hash/John/show-john.png)
 
 ---
 
@@ -450,7 +451,7 @@ Hashcat
 hashcat -m 0 -a 0 --show hash.txt
 ```
 
-![picture]()
+![picture](Assets/Hash/Hashcat/hash-show.png)
 
 ---
 
@@ -464,8 +465,6 @@ John the Ripper
 rm ~/.john/john.pot
 ```
 
-![picture]()
-
 ---
 
 Hashcat
@@ -475,8 +474,6 @@ Hashcat
 ```sh
 rm ~/.hashcat/hashcat.potfile
 ```
-
-![picture]()
 
 ---
 ---
@@ -510,7 +507,7 @@ rm ~/.hashcat/hashcat.potfile
 MySQL || tcp.port == 3306
 ```
 
-![picture](Assets/Wireshark/Wireshark-overview.png)
+![picture](Assets/Wireshark/wireshark-overview.png)
 
 4. Start Capturing
 
@@ -534,7 +531,7 @@ MySQL -h 192.168.204.147 -u root --ssl=0
 
 2. Expand MySQL Protocol › Login Request.
 
-![picture](Assets/Wireshark/Wireshark-username-root.png)
+![picture](Assets/Wireshark/wireshark-username-root.png)
 
 - You cann see the username: root
 - Password/Client Auth Plugin: `Blank`

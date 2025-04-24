@@ -36,10 +36,10 @@
 
 ## **Lab Setup** 🖥️⚙️
 
-- **Attacker Machine**: Kali Linux
-- **Target**: Vulnerable machine running an exposed database service</br></br>
+- **Attacker Machine**: **Kali Linux** 🐍
+- **Target**: Vulnerable machine running an exposed database service 🧱
 
-<br/> <br>
+<br/>
 
 ---
 

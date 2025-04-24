@@ -1,4 +1,4 @@
-# **Cryptographic Attacks - Cracking Weak Password Hashes & Exploiting Poor Authentication in Databases**
+# **🔐 Cryptographic Attacks – Cracking Weak Password Hashes & Exploiting Poor Authentication in Databases 🗝️💻**
 
 ---
 
@@ -30,7 +30,7 @@
 
 <br/>
 
-## **Lab Setup ** 🖥️⚙️
+## **Lab Setup** 🖥️⚙️
 
 - **Attacker Machine**: Kali Linux
 - **Target**: Vulnerable machine running an exposed database service</br></br>

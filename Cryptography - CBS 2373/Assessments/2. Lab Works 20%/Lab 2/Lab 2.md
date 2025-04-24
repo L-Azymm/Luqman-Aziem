@@ -1,5 +1,7 @@
 # **🔐 Cryptographic Attacks – Cracking Weak Password Hashes & Exploiting Poor Authentication in Databases 🗝️💻**
 
+![banner](Assets/Scans/lab2-banner.png)
+
 ---
 
 <br/>

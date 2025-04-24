@@ -2,9 +2,9 @@
 
 ![banner](Assets/Scans/lab2-banner.png)
 
----
-
 <br/>
+
+---
 
 ## **Objectives** 🎯
 
@@ -13,9 +13,9 @@
 3. Investigate real-world cryptographic failures.
 4. Propose secure cryptographic solutions.
 
----
-
  <br/>
+
+---
 
 ## **Ingredients Needed** 🧰
 
@@ -30,6 +30,8 @@
 | `hashcat`   | GPU-based hash cracking           |
 | `Wireshark` | Network traffic analysis          |
 
+---
+
 <br/>
 
 ## **Lab Setup** 🖥️⚙️
@@ -37,12 +39,16 @@
 - **Attacker Machine**: Kali Linux
 - **Target**: Vulnerable machine running an exposed database service</br></br>
 
+<br/> <br>
+
 ---
 ---
 
 ## **Task 1: Service Enumeration and Initial Access** 🔍
 
 ### ✅ 1.1 Finding the Target IP 🛰️
+
+- Using `Netdiscover`
 
 ```bash
 netdiscover
@@ -53,9 +59,11 @@ netdiscover
 
 ![picture](Assets/Scans/netdiscover.png)
 
+<br>
+
 ---
 
-<br>
+- Using `Nmap`
 
 ```bash
 nmap -sS -sV -p- <Target IP>
@@ -69,9 +77,9 @@ nmap -sS -sV -p- <Target IP>
 
 ![picture](Assets/Scans/nmap-scan1.png)
 
----
-
 <br>
+
+---
 
 So instead we shortlist the ports that are commonly used or just the one we want
 
@@ -82,6 +90,8 @@ sudo nmap -sS -sV -p 21,22,23,25,80,111,139,445,512-515,3306,5432,5900,6000 192.
 ![picture](Assets/Scans/nmap-scan2.png)
 
 Discovered port **3306** open → MySQL service detected.
+
+ <br/>
 
 ---
 
@@ -120,6 +130,8 @@ openssl s_client -connect <target IP>:3306 -quiet
 
 ![picture](Assets/MySQL/openssl-check.png)
 
+ <br/>
+
 ---
 
 ### Results 📊
@@ -129,6 +141,8 @@ It tests whether the target service (e.g., MySQL) supports SSL/TLS encryption on
 - If SSL/TLS is **enabled and configured**, you’ll see a **successful SSL handshake** and _certificate details_.
 
 - If SSL/TLS is **not supported**, you’ll get an **error** (e.g., no peer certificate available or SSL3_GET_RECORD: wrong version number).
+
+ <br/>
 
 ---
 
@@ -148,11 +162,13 @@ Running this command will attempt a connection to the MySQL service
 
 ### **⚠️ Problem Encountered ⚠️** 😖
 
-⚠️ Running this command will result in error
+- Running this command will result in error
 
-**`ERROR 2026 (HY000): TLS/SSL error: wrong version number`**
+  **`ERROR 2026 (HY000): TLS/SSL error: wrong version number`**
 
-This is due to the mismatch in SSL/TLS versions / Or this may happen if the service doesn't support the usage of SSL/TLS
+- This is due to the mismatch in SSL/TLS versions / Or this may happen if the service doesn't support the usage of SSL/TLS
+
+<br>
 
 ---
 
@@ -184,11 +200,9 @@ MySQL -h 192.168.204.147 -u root --ssl=DISABLED
 
 💥We have successfully entered the **Database** of **MySQL** service 💥
 
-<br/>
-
 ---
 
-<br/>
+<br/> <br>
 
 ---
 ---
@@ -229,6 +243,8 @@ SELECT * FROM MySQL.user;
 
 ![picture](Assets/DB-MySQL/mysql-host-user-password.png)
 
+ <br/>
+
 ---
 
 ### 🔴 Result 🔴 🟥
@@ -236,6 +252,8 @@ SELECT * FROM MySQL.user;
 After obtainin the oh sweet data from MySQL database, you can see that the **users** don't have any **password configured**, allowing anyone to gain access to the database, which is worsen by the fact that it can be entered by **any hosts**
 
 ![picture](Assets/DB-MySQL/mysql-privilege.png)
+
+ <br/>
 
 ---
 
@@ -245,6 +263,8 @@ After obtainin the oh sweet data from MySQL database, you can see that the **use
 - `%` symbol mean that it can be entered from any IPs
 - Every privilage column is labeled `Y` or Yes means that all data can be modified
 
+ <br/>
+
 ---
 
 ### ⭐ ❔Question: Is no password a cryptographic failure? ❔ ⭐ 🤔
@@ -253,7 +273,7 @@ After obtainin the oh sweet data from MySQL database, you can see that the **use
 
 ---
 
-<br/>
+<br/> <br>
 
 ---
 ---
@@ -292,6 +312,8 @@ SELECT * FROM dvwa.users;
 
 ![picture](Assets/DB-DVWA/dvwa-users-info.png)
 
+ <br/>
+
 ---
 
 ### 🔴 Results 🔴 🟥
@@ -301,6 +323,8 @@ From the picture, we can see that the users from dvwa has passwords configure un
 This is because the password is encrypted, unabling us from seeing the real password
 
 Now that you understands, lets move on
+
+ <br/>
 
 ---
 
@@ -315,6 +339,8 @@ The extracted hash from Bob:
 ```text
 5f4dcc3b5aa765d61d8327deb882cf99
 ```
+
+ <br/>
 
 ---
 
@@ -357,6 +383,8 @@ hash-identifer
 
 🟩 The results shows that the most possible hash used was eaither MD5 or MD4
 
+ <br/>
+
 ---
 
 ### Rule of thumb 👍
@@ -368,6 +396,8 @@ hash-identifer
 | Starts with $1$, $6$, etc.?                 | → Linux shadow hashes (MD5, SHA‑512). |
 | Upper‑case 32‑char hex split by :?          | → LM/NTLM.                            |
 
+ <br/>
+
 ---
 
 - Result: **MD5 Crypt**
@@ -375,7 +405,7 @@ hash-identifer
 
 ---
 
-<br/>
+<br/> <br>
 
 ---
 ---
@@ -392,6 +422,8 @@ echo 5f4dcc3b5aa765d61d8327deb882cf99 > hash.txt
 
 ![picture](Assets/Hash/save-hash.png)
 
+ <br/>
+
 ---
 
 ### ✅ 4.1 Using John the Ripper
@@ -402,6 +434,8 @@ john --wordlist=<wordlist> hash.txt
 
 ![picture](Assets/Hash/John/failed-john.png)
 
+ <br/>
+
 ---
 
 ### ⚠️ Problem Encountered ⚠️
@@ -411,6 +445,8 @@ When running the code above, you will encounter the error
 - `Warning: detected hash type "LM", but the string is also recognized as "dynamic=md5($p)"`
 
 This is caused by the hash being **MD5**, and we didn't specify the format we want to use, so it wouldnt know which format to use and would **defaulted** to using **LM** format to crack it
+
+ <br/>
 
 ---
 
@@ -430,6 +466,8 @@ By using this command, we can see that the cracking was successful, thus showing
 
 - Cracked password: `password`
 
+ <br/>
+
 ---
 
 ### ✅ 4.2 Using Hashcat (alternative)
@@ -443,6 +481,8 @@ hashcat -m 0 -a 0 hash.txt password.txt
 
 ![picture](Assets/Hash/Hashcat/hash-success1.png)
 ![picture](Assets/Hash/Hashcat/hash-success2.png)
+
+ <br/>
 
 ---
 
@@ -462,6 +502,8 @@ cat ~/.john/john.pot
 
 ![picture](Assets/Hash/John/show-john.png)
 
+ <br/>
+
 ---
 
 Hashcat ⬇️
@@ -473,6 +515,8 @@ hashcat -m 0 -a 0 --show hash.txt
 ```
 
 ![picture](Assets/Hash/Hashcat/hash-show.png)
+
+ <br/>
 
 ---
 
@@ -486,6 +530,8 @@ John the Ripper ⬇️
 rm ~/.john/john.pot
 ```
 
+ <br/>
+
 ---
 
 Hashcat ⬇️
@@ -495,6 +541,8 @@ Hashcat ⬇️
 ```sh
 rm ~/.hashcat/hashcat.potfile
 ```
+
+<br/> <br>
 
 ---
 ---
@@ -512,6 +560,8 @@ rm ~/.hashcat/hashcat.potfile
 - Enforce strong password policy
 - Use secure hash functions (e.g., bcrypt, Argon2)
 - Enable SSL/TLS for database communication
+
+<br/> <br>
 
 ---
 ---
@@ -532,6 +582,8 @@ MySQL || tcp.port == 3306
 
 4. Start Capturing ⬇️
 
+ <br/>
+
 ---
 
 ### ✅ **6.2 Generate Traffic**
@@ -543,6 +595,8 @@ MySQL -h 192.168.204.147 -u root --ssl=0
 ```
 
 ![picture](Assets/Wireshark/mysql-login.png)
+
+ <br/>
 
 ---
 
@@ -556,6 +610,8 @@ MySQL -h 192.168.204.147 -u root --ssl=0
 
 - You cann see the username: root
 - Password/Client Auth Plugin: `Blank`
+
+ <br/>
 
 ---
 

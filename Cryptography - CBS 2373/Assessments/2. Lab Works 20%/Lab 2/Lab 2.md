@@ -42,7 +42,7 @@
 
 ## **Task 1: Service Enumeration and Initial Access** 🔍
 
-### **1.1 Finding the Target IP** 🛰️
+### ✅ 1.1 Finding the Target IP 🛰️
 
 ```bash
 netdiscover
@@ -102,7 +102,7 @@ Not stealthy (full TCP handshake), better for basic connectivity check.
 
 ---
 
-### 1.2 OpenSSL Check for Encryption 🔑
+### ✅ 1.2 OpenSSL Check for Encryption 🔑
 
 ```bash
 openssl s_client -connect <target IP>:3306 -quiet
@@ -132,7 +132,7 @@ It tests whether the target service (e.g., MySQL) supports SSL/TLS encryption on
 
 ---
 
-### **1.3 Connection Attempt** 🔌
+### ✅ 1.3 Connection Attempt 🔌
 
 ```bash
 MySQL -h <Target IP> -u root
@@ -197,15 +197,15 @@ MySQL -h 192.168.204.147 -u root --ssl=DISABLED
 
 ---
 
-### Enumeration
+### ✅ Enumeration
 
-1. Enter MySQL database
+1. Enter MySQL database ⬇️
 
 ```sql
 USE MySQL
 ```
 
-2. Lets see what MySQL contents
+2. Lets see what MySQL contents ⬇️
 
 ```sql
 SHOW TABLES;
@@ -213,7 +213,7 @@ SHOW TABLES;
 
 ![picture](Assets/DB-MySQL/mysql-table.png)
 
-3. Find the required info
+3. Find the required info ⬇️
 
 ```sql
 SELECT host, user, password FROM user;
@@ -221,7 +221,7 @@ SELECT host, user, password FROM user;
 
 OR
 
-To direcly show the required info from MySQL **user** table
+To direcly show the required info from MySQL **user** table ⬇️
 
 ```sql
 SELECT * FROM MySQL.user;
@@ -234,6 +234,8 @@ SELECT * FROM MySQL.user;
 ### 🔴 Result 🔴 🟥
 
 After obtainin the oh sweet data from MySQL database, you can see that the **users** don't have any **password configured**, allowing anyone to gain access to the database, which is worsen by the fact that it can be entered by **any hosts**
+
+![picture](Assets/DB-MySQL/mysql-privilege.png)
 
 ---
 
@@ -260,7 +262,7 @@ After obtainin the oh sweet data from MySQL database, you can see that the **use
 
 Now that we know MySQL don't have anypassword, lets find a Databasewhich has one, in this case **`DVWA`** or `Damn Vulnerable Web Application`
 
-1. Enter DVWA database
+1. Enter DVWA database ⬇️
 
 ```sql
 USE dvwa
@@ -276,7 +278,7 @@ SHOW TABLES;
 
 ![picture](Assets/DB-DVWA/dvwa-table.png)
 
-3. Find the required info
+3. Find the required info ⬇️
 
 ```sql
 SELECT * FROM users;
@@ -302,7 +304,7 @@ Now that you understands, lets move on
 
 ---
 
-### 3.1 Extract the Hash 🗂️
+### ✅ 3.1 Extract the Hash 🗂️
 
 Lets choose Bob/Smithy as our target, why? Cause I feel like doing so 🤣
 
@@ -316,25 +318,44 @@ The extracted hash from Bob:
 
 ---
 
-### 3.2 Identify the Hash
+### ✅ 3.2 Identify the Hash
 
 We can use:
 
 - `hashid`
 - `hash-identifier`
 
+### Using `hashid` ⬇
+
 ```sh
 hashid '5f4dcc3b5aa765d61d8327deb882cf99'
 ```
 
-![picture](Assets/Hash/Hashcat/hashid.png)
+![picture](Assets\Hash\Identify\hashid.png)
 
-We can see that it show many posibilities of hash, so we need to check the characteristic of the hash we extracted
+🎈 We can see that it show many posibilities of hash, so we need to check the characteristic of the hash we extracted
 
 - 32 characters
 - Digits 0–9 and lowercase letters a–f only (hexadecimal)
 - It is just the 32‑char string—no \*, no $, no colons
 - Typically lowercase (uppercase works too, but apps usually store lowercase)
+
+### Using `hash-identifier` 
+
+1. Startup `Hash-Identifier` ⬇️
+2. Enter the `hash` that you want to crack ⬇️
+
+```sh
+hash-identifer
+```
+
+![picture](Assets/Hash/Identify/hash-id-start.png)
+
+3. Press enter and it will identify which hash was used ⬇️
+
+![picture](Assets/Hash/Identify/hash-id-output.png)
+
+🟩 The results shows that the most possible hash used was eaither MD5 or MD4
 
 ---
 
@@ -363,7 +384,7 @@ We can see that it show many posibilities of hash, so we need to check the chara
 
 Now we arrived a the best part, craking it down
 
-First off, save the hash to a file
+First off, save the hash to a file ⬇️
 
 ```sh
 echo 5f4dcc3b5aa765d61d8327deb882cf99 > hash.txt
@@ -373,7 +394,7 @@ echo 5f4dcc3b5aa765d61d8327deb882cf99 > hash.txt
 
 ---
 
-### 4.1 Using John the Ripper
+### ✅ 4.1 Using John the Ripper
 
 ```bash
 john --wordlist=<wordlist> hash.txt
@@ -411,7 +432,7 @@ By using this command, we can see that the cracking was successful, thus showing
 
 ---
 
-### 4.2 Using Hashcat (alternative)
+### ✅ 4.2 Using Hashcat (alternative)
 
 ```bash
 hashcat -m 0 -a 0 hash.txt password.txt
@@ -431,7 +452,7 @@ hashcat -m 0 -a 0 hash.txt password.txt
 
 ### **To view cracked hash** 🪟
 
-John the Ripper
+John the Ripper ⬇️
 
 - John stores the cracked hashes in the john.pot file
 
@@ -443,7 +464,7 @@ cat ~/.john/john.pot
 
 ---
 
-Hashcat
+Hashcat ⬇️
 
 - Hashcat stores cracked hashes in the hashcat.potfile
 
@@ -457,7 +478,7 @@ hashcat -m 0 -a 0 --show hash.txt
 
 ### **To clear stored cracked hash** 🗑️
 
-John the Ripper
+John the Ripper ⬇️
 
 - To clear the cracked hashes from the john.pot file, simply delete the john.pot file:
 
@@ -467,7 +488,7 @@ rm ~/.john/john.pot
 
 ---
 
-Hashcat
+Hashcat ⬇️
 
 - To clear the cracked hashes from the hashcat.potfile, delete the file:
 
@@ -497,11 +518,11 @@ rm ~/.hashcat/hashcat.potfile
 
 ## **Task 6: Wireshark Analysis** 🦈
 
-### **6.1 Heating up the oven**
+### ✅ **6.1 Heating up the oven**
 
-1. Fire up `Wireshark`
-2. Choose the interface that oyu want to capture ( Example: eth0 )
-3. Add a display filter
+1. Fire up `Wireshark` ⬇️
+2. Choose the interface that oyu want to capture ( Example: eth0 ) ⬇️
+3. Add a display filter ⬇️
 
 ```bash
 MySQL || tcp.port == 3306
@@ -509,13 +530,13 @@ MySQL || tcp.port == 3306
 
 ![picture](Assets/Wireshark/wireshark-overview.png)
 
-4. Start Capturing
+4. Start Capturing ⬇️
 
 ---
 
-### **6.2 Generate Traffic**
+### ✅ **6.2 Generate Traffic**
 
-1. Open a second terminal and log in without SSL
+1. Open a second terminal and log in without SSL ⬇️
 
 ```sh
 MySQL -h 192.168.204.147 -u root --ssl=0
@@ -525,11 +546,11 @@ MySQL -h 192.168.204.147 -u root --ssl=0
 
 ---
 
-### **6.3 Stop capture & locate the login packet**
+### ✅ **6.3 Stop capture & locate the login packet**
 
-1. Look for a packet labeled “Login Request” or just the first packet from client → server after SYN/ACK
+1. Look for a packet labeled “Login Request” or just the first packet from client → server after SYN/ACK ⬇️
 
-2. Expand MySQL Protocol › Login Request.
+2. Expand MySQL Protocol › Login Request. ⬇️
 
 ![picture](Assets/Wireshark/wireshark-username-root.png)
 

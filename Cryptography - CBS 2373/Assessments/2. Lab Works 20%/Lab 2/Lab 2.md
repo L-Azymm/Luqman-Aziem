@@ -152,7 +152,7 @@ Running this command will attempt a connection to the MySQL service
 
 **`ERROR 2026 (HY000): TLS/SSL error: wrong version number`**
 
-This is due to the mismatch in SSL/TLS versions
+This is due to the mismatch in SSL/TLS versions / Or this may happen if the service doesn't support the usage of SSL/TLS
 
 ---
 
@@ -327,7 +327,7 @@ We can use:
 hashid '5f4dcc3b5aa765d61d8327deb882cf99'
 ```
 
-![picture](Assets/Hash/hashid.png)
+![picture](Assets/Hash/Hashcat/hashid.png)
 
 We can see that it show many posibilities of hash, so we need to check the characteristic of the hash we extracted
 

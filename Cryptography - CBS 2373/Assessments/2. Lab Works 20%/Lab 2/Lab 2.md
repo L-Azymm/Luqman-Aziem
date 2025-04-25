@@ -374,7 +374,7 @@ We can use:
 hashid '5f4dcc3b5aa765d61d8327deb882cf99'
 ```
 
-![picture](Assets\Hash\Identify\hashid.png)
+![picture](Assets/Hash/Identify/hashid.png)
 
 🎈 We can see that it show many posibilities of hash, so we need to check the characteristic of the hash we extracted
 

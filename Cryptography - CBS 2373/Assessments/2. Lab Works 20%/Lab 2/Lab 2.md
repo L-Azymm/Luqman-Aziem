@@ -160,7 +160,7 @@ It tests whether the target service (e.g., MySQL) supports SSL/TLS encryption on
 ### ✅ 1.3 Connection Attempt 🔌
 
 ```bash
-MySQL -h <Target IP> -u root
+mysql -h <Target IP> -u root
 ```
 
 Running this command will attempt a connection to the MySQL service
@@ -198,13 +198,13 @@ But we can bypass/fix this by adding this at the end of the command
 Running this command will result in a success connection to MySQL
 
 ```sh
-MySQL -h 192.168.204.147 -u root --ssl=0
+mysql -h 192.168.204.147 -u root --ssl=0
 ```
 
 OR
 
 ```sh
-MySQL -h 192.168.204.147 -u root --ssl=DISABLED
+mysql -h 192.168.204.147 -u root --ssl=DISABLED
 ```
 
 ![picture](Assets/MySQL/mysql-successful.png)
@@ -227,7 +227,7 @@ MySQL -h 192.168.204.147 -u root --ssl=DISABLED
 1. Enter MySQL database ⬇️
 
 ```sql
-USE MySQL
+USE mysql
 ```
 
 2. Lets see what MySQL contents ⬇️
@@ -409,7 +409,7 @@ hash-identifer
 | Characteristic                              | Hash                                  |
 | ------------------------------------------- | ------------------------------------- |
 | 32‑char hex hash from an old PHP/MySQL app? | → assume MD5.                         |
-| Starts with and 40 hex chars?            | → MySQL 4.1+ SHA‑1 (94BDCE...).     |
+| Starts with and 40 hex chars?               | → MySQL 4.1+ SHA‑1 (94BDCE...).     |
 | Starts with $1$, $6$, etc.?                 | → Linux shadow hashes (MD5, SHA‑512). |
 | Upper‑case 32‑char hex split by :?          | → LM/NTLM.                            |
 
@@ -599,7 +599,7 @@ rm ~/.hashcat/hashcat.potfile
 3. Add a display filter ⬇️
 
 ```bash
-MySQL || tcp.port == 3306
+mysql || tcp.port == 3306
 ```
 
 ![picture](Assets/Wireshark/wireshark-overview.png)
@@ -615,7 +615,7 @@ MySQL || tcp.port == 3306
 1. Open a second terminal and log in without SSL ⬇️
 
 ```sh
-MySQL -h 192.168.204.147 -u root --ssl=0
+mysql -h 192.168.204.147 -u root --ssl=0
 ```
 
 ![picture](Assets/Wireshark/mysql-login.png)

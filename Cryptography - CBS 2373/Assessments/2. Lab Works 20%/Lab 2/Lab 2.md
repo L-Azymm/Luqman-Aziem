@@ -282,6 +282,12 @@ After obtainin the oh sweet data from MySQL database, you can see that the **use
 
 **Yes.** It completely bypasses cryptographic authentication. A secure system must require password Hashing + proper access control.
 
+As we also know that a database where a crucial/confidential data, can be access without any password/authentication, would be breaching the CIA triad:
+
+- C: Confidentiality : The data stored would no longer be a secret
+- I: Intergrity : The data can be changed
+- A: Authentication : No password to access the database
+
 ---
 
 <br/> <br>
@@ -412,7 +418,14 @@ hash-identifer
 ---
 
 - Result: **MD5 Crypt**
-- Weak due to collision resistance and speed (fast to brute-force)
+
+---
+
+### ⭐ Question: What cryptographic weaknesses exist in this hashing method? ⭐
+
+- Fast to compute: Makes it vulnerable to brute-force and dictionary attacks.
+- Outdated : MD5 has been considered broken since the mid-2000s.
+- Weak Salt: Even though MD5 Crypt uses a salt, it's still not secure by modern standards.
 
 ---
 

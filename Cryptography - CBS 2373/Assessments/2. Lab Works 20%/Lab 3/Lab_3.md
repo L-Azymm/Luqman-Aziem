@@ -30,7 +30,7 @@
 ### Step 1: Create a file
 
 ```sh
-echo "Secret Message from Ezekiel to Danish" > secret.txt
+echo "Secret Message from Zymm to unknown" > secret.txt
 ```
 
 ✅ This creates a new file called `secret.txt` containing a secret message.

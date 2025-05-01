@@ -1,278 +1,310 @@
+# 🔐 **Lab 3: Hands-on Exploration of Cryptographic Tools using OpenSSL**
 
-# **Lab 3: Hands-on Exploration of Cryptographic Tools**
-
----
-
-## **Table of Contents**
-
-- [Objectives](#objectives)  
-- [Task 1: AES Symmetric Encryption](#task-1-aes-symmetric-encryption)  
-- [Task 2: RSA Asymmetric Encryption](#task-2-rsa-asymmetric-encryption)  
-- [Task 3: SHA-256 Hashing](#task-3-sha-256-hashing)  
-- [Task 4: Digital Signatures](#task-4-digital-signatures)  
+<br>
 
 ---
 
-## **Objectives**
+## 🧰 **Lab Setup & Tools Required**
 
-- Learn how to use OpenSSL for encryption and decryption using AES (symmetric) and RSA (asymmetric).
-- Understand how to hash data using SHA-256 to check integrity.
-- Learn to sign a file digitally using a private key and verify it using a public key.
+| Item               | Description                                                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| 🖥️ OS              | Kali Linux or any Linux distro with **OpenSSL** pre-installed                                                                 |
+| 🔧 Tool            | `OpenSSL` – a toolkit for SSL/TLS and general cryptography                                                                    |
+| 📂 Files           | You'll create files like `secret.txt`, `message.txt`, `black.txt`, `sign.txt`                                                 |
+| ⚙️ Setting up      | ✅ Kali Linux VM or Terminal <br> ✅ Internet (for updates if needed) <br> ❌ No special services like Apache or MySQL needed |
+
+<br>
 
 ---
 
-## **Task 1: AES Symmetric Encryption**
+## 🎯 **Objectives**
 
-**Objective:** Encrypt and decrypt a file using AES-256-CBC mode (symmetric encryption).
+- 🔐 Perform AES (symmetric) encryption & decryption
+- 🔑 Use RSA (asymmetric) encryption & decryption
+- 🧮 Generate SHA-256 hashes
+- ✍️ Sign and verify files using digital signatures
+
+<br>
 
 ---
+---
 
-### Step 1: Create a file
+## 🧪 **Task 1: AES Symmetric Encryption**
 
-```sh
-echo "Secret Message from Zymm to unknown" > secret.txt
+### 🔹 Step 1: Create a file
+
+```bash
+echo "Secret Message from Zymm to Iqbal" > secret.txt
 ```
 
-✅ This creates a new file called `secret.txt` containing a secret message.
+✅ Creates `secret.txt` with a message.
 
 ---
 
-### Step 2: Encrypt the file
+### 🔹 Step 2: Encrypt the file
 
-```sh
+```bash
 openssl enc -aes-256-cbc -salt -in secret.txt -out secret.enc
 ```
 
-✅ Encrypts the file using AES-256 in CBC mode. You will be asked to enter a password to secure the file. The encrypted file will be saved as `secret.enc`.
+🧾 Flags Explained
+
+- `enc` ➜ use the encryption feature
+- `-aes-256-cbc` ➜ use AES with 256-bit key in CBC (Cipher Block Chaining) mode
+- `-salt` ➜ adds randomness to protect against dictionary attacks
+- `-in` ➜ specify input file
+- `-out` ➜ specify encrypted output file
+
+🔐 You’ll be prompted to enter a password.
 
 ---
 
-### Step 3: Decrypt the file
+### 🔹 Step 3: Decrypt the file
 
-```sh
+```bash
 openssl enc -aes-256-cbc -d -in secret.enc -out secret-decrypted.txt
 ```
 
-✅ Decrypts the `secret.enc` file using the same password and outputs the result into `secret-decrypted.txt`.
+### 🧾 Flags Explained
+
+- `-d` ➜ decrypt mode
+- Rest are same as encryption
 
 ---
 
-### Step 4: View and compare the result
+### 🔹 Step 4: Compare decrypted file
 
-```sh
+```bash
 cat secret-decrypted.txt
 ```
 
-✅ This displays the decrypted message to confirm that it matches the original text.
+✅ Confirms if decryption matches original.
 
 ---
 
-### Explanation
+### 🧠 Explanation
 
-- AES is a symmetric algorithm, meaning the same password is used for both encryption and decryption.
-- The `-salt` option adds randomness to the encryption for better security.
-- CBC (Cipher Block Chaining) mode encrypts data in blocks, where each block depends on the previous one.
+- AES is **symmetric** 🔄 (same password for encryption/decryption).
+- CBC mode ensures better security by chaining blocks.
+- `-salt` helps make each encryption unique.
 
 <br><br>
 
 ---
 ---
 
-## **Task 2: RSA Asymmetric Encryption**
+## 🧪 **Task 2: RSA Asymmetric Encryption**
 
-**Objective:** Encrypt and decrypt a message using a public/private key pair.
+### 🔹 Step 1: Generate private key
 
----
-
-### Step 1: Generate a private key
-
-```sh
+```bash
 openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048
 ```
 
-✅ This command generates a 2048-bit RSA private key and saves it in `private.pem`.
+🧾 Flags:
+
+- `genpkey` ➜ generate private key
+- `-algorithm RSA` ➜ use RSA
+- `-out` ➜ file to save private key
+- `-pkeyopt rsa_keygen_bits:2048` ➜ key size (2048 bits = secure)
 
 ---
 
-### Step 2: Extract the public key
+### 🔹 Step 2: Extract public key
 
-```sh
+```bash
 openssl rsa -pubout -in private.pem -out public.pem
 ```
 
-✅ Takes the private key and generates the corresponding public key, saving it to `public.pem`.
+🧾 `-pubout` ➜ extracts the public key from private key.
 
 ---
 
-### Step 3: Create a message file
+### 🔹 Step 3: Create message
 
-```sh
+```bash
 echo "This is a secret message" > message.txt
 ```
 
-✅ This creates a file `message.txt` with the content that we want to encrypt.
-
 ---
 
-### Step 4: Encrypt the message with the public key
+### 🔹 Step 4: Encrypt with public key
 
-```sh
+```bash
 openssl rsautl -encrypt -inkey public.pem -pubin -in message.txt -out message.enc
 ```
 
-✅ Encrypts `message.txt` using the **public key**, saving the output as `message.enc`.
+🧾 Flags
+
+- `rsautl` ➜ RSA utilities
+- `-encrypt` ➜ encryption mode
+- `-inkey` ➜ use this key file
+- `-pubin` ➜ tells OpenSSL it's a **public key**
+- `-in` / `-out` ➜ input/output files
 
 ---
 
-### Step 5: Decrypt the message with the private key
+### 🔹 Step 5: Decrypt with private key
 
-```sh
+```bash
 openssl rsautl -decrypt -inkey private.pem -in message.enc -out message-decrypted.txt
 ```
 
-✅ Decrypts `message.enc` using the **private key** and stores the result in `message-decrypted.txt`.
+🧾 Use `private.pem` to decrypt the encrypted message.
 
 ---
 
-### Step 6: View the decrypted message
+### 🔹 Step 6: Display result
 
-```sh
+```bash
 cat message-decrypted.txt
 ```
 
-✅ This shows the decrypted message. It should match the original message.
+✅ Shows the decrypted message. Should match the original.
 
 ---
 
-### Explanation
+### 🧠 Explanation
 
-- RSA uses **two keys**: one public (to encrypt), and one private (to decrypt).
-- Public key can be shared freely, but private key must be kept secret.
-- Useful for secure communication between two parties.
+- RSA uses 🔐 **asymmetric encryption** (public encrypts, private decrypts).
+- Used for secure communication and key exchange.
+- **Never share your private key!**
 
 <br><br>
 
 ---
 ---
 
-## **Task 3: SHA-256 Hashing**
+## 🧪 **Task 3: SHA-256 Hashing**
 
-**Objective:** Use SHA-256 hashing to ensure data integrity.
-
----
-
-### Step 1: Create a simple file
+### 🔹 Step 1: Create a file
 
 ```bash
 echo "Luqman Aziem | 123456" > black.txt
 ```
 
-✅ This makes a file with some login-like info.
-
 ---
 
-### Step 2: Hash the file
+### 🔹 Step 2: Hash the file
 
 ```bash
 openssl dgst -sha256 black.txt
 ```
 
-✅ Generates a SHA-256 hash of the file content.
+### 🧾 Flags:
+
+- `dgst` ➜ digest (hashing) tool
+- `-sha256` ➜ use SHA-256 algorithm
 
 ---
 
-### Step 3: Change the file slightly
+### 🔹 Step 3: Modify the file slightly
 
 ```bash
 echo " " >> black.txt
 ```
 
-✅ Adds just a space at the end of the file.
+Adds just a space.
 
 ---
 
-### Step 4: Hash it again
+### 🔹 Step 4: Hash again
 
 ```bash
 openssl dgst -sha256 black.txt
 ```
 
-✅ Hash value will now be completely different.
+✅ You’ll see a completely **different hash**.
 
 ---
 
-### Explanation
+### 🧠 Explanation:
 
-- Even a small change (like a space) causes a **completely different hash**.
-- This is called the **avalanche effect**.
-- Hashes are used to check **if data has been changed**.
+- SHA-256 creates a unique fingerprint of the file.
+- Even small changes make a **new hash** (🔁 Avalanche Effect).
+- Used to verify file **integrity**.
 
 <br><br>
 
 ---
 ---
 
-## **Task 4: Digital Signatures**
+## 🧪 **Task 4: Digital Signatures**
 
-**Objective:** Sign a file using a private key and verify the signature using a public key.
-
----
-
-### Step 1: Create a file to sign
+### 🔹 Step 1: Create a file
 
 ```bash
 echo "Digital signature test file" > sign.txt
 ```
 
-✅ Prepares the file we want to sign.
-
 ---
 
-### Step 2: Sign the file with private key
+### 🔹 Step 2: Sign with private key
 
 ```bash
 openssl dgst -sha256 -sign private.pem -out sign.sha256 sign.txt
 ```
 
-✅ Signs `sign.txt` using SHA-256 and your private key. Signature saved in `sign.sha256`.
+🧾 Flags:
+
+- `-sign` ➜ sign the file
+- `private.pem` ➜ your private key
+- `-out` ➜ where to save the signature
+- `-sha256` ➜ hashing algorithm used before signing
 
 ---
 
-### Step 3: Verify the signature using public key
+### 🔹 Step 3: Verify with public key
 
 ```bash
 openssl dgst -sha256 -verify public.pem -signature sign.sha256 sign.txt
 ```
 
-✅ This checks the signature with the public key. It should return **"Verified OK"** if file is untouched.
+🧾 Flags:
+
+- `-verify` ➜ verify a signature
+- `-signature` ➜ path to the signature file
+
+✅ If no changes, output = `Verified OK`.
 
 ---
 
-### Step 4: Tamper with the file
+### 🔹 Step 4: Tamper the file
 
 ```bash
 echo "Tampered!" >> sign.txt
 ```
 
-✅ Changes the content of the signed file.
-
 ---
 
-### Step 5: Verify again
+### 🔹 Step 5: Verify again
 
 ```bash
 openssl dgst -sha256 -verify public.pem -signature sign.sha256 sign.txt
 ```
 
-❌ This time the result will say **"Verification Failure"**, because the file was changed.
+❌ Output: `Verification Failure`
 
 ---
 
-### Explanation
+### 🧠 Explanation:
 
-- A digital signature proves that a file **came from the right person** (authenticity) and **was not changed** (integrity).
-- Signing is done with the **private key**, and checking is done using the **public key**.
-- If the file changes even slightly, the signature will no longer be valid.
+- Signing proves **authenticity + integrity** ✅
+- Only **your private key** can generate the valid signature.
+- Anyone with **your public key** can check if the file is genuine.
+
+<br><br>
 
 ---
+---
+
+## ✅ **Summary**
+
+| Task                 | What You Learned                              |
+| -------------------- | --------------------------------------------- |
+| 🔐 AES               | Encrypt/Decrypt with same password            |
+| 🔑 RSA               | Use public key to encrypt, private to decrypt |
+| 🔢 SHA-256           | Create hash to verify data integrity          |
+| ✍️ Digital Signature | Prove file authenticity & detect tampering    |
+
 ---

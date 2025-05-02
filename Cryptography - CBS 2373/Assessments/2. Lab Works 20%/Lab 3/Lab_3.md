@@ -186,7 +186,7 @@ cat message-decrypted.txt
 
 ✅ Shows the decrypted message. Should match the original.
 
-[Picture](Assets/task_2/show.png)
+![Picture](Assets/task_2/show.png)
 
 ---
 
@@ -209,7 +209,7 @@ cat message-decrypted.txt
 echo "Luqman Aziem | 123456" > black.txt
 ```
 
-![Picture]()
+![Picture](Assets/task_3/text.png)
 
 ---
 
@@ -259,8 +259,6 @@ openssl dgst -sha256 black.txt
 - Used to verify file **integrity**.
 
 <br><br>
-
-![Picture]()
 
 ---
 ---

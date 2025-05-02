@@ -33,11 +33,21 @@
 
 ### 🔹 Step 1: Create a file
 
+To generate random key
+
+```bash
+openssl rand -out zymm_sym.key 32
+```
+
+---
+
 ```bash
 echo "Secret Message from Zymm to Iqbal" > secret.txt
 ```
 
 ✅ Creates `secret.txt` with a message.
+
+![Picture](Assets/task_1/secret.png)
 
 ---
 
@@ -57,6 +67,8 @@ openssl enc -aes-256-cbc -salt -in secret.txt -out secret.enc
 
 🔐 You’ll be prompted to enter a password.
 
+![Picture](Assets/task_1/encrypt.png)
+
 ---
 
 ### 🔹 Step 3: Decrypt the file
@@ -70,6 +82,8 @@ openssl enc -aes-256-cbc -d -in secret.enc -out secret-decrypted.txt
 - `-d` ➜ decrypt mode
 - Rest are same as encryption
 
+![Picture](Assets/task_1/decrypt.png)
+
 ---
 
 ### 🔹 Step 4: Compare decrypted file
@@ -79,6 +93,8 @@ cat secret-decrypted.txt
 ```
 
 ✅ Confirms if decryption matches original.
+
+![Picture](Assets/task_1/show.png)
 
 ---
 
@@ -108,6 +124,8 @@ openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048
 - `-out` ➜ file to save private key
 - `-pkeyopt rsa_keygen_bits:2048` ➜ key size (2048 bits = secure)
 
+![Picture](Assets/task_2/genkey.png)
+
 ---
 
 ### 🔹 Step 2: Extract public key
@@ -118,6 +136,8 @@ openssl rsa -pubout -in private.pem -out public.pem
 
 🧾 `-pubout` ➜ extracts the public key from private key.
 
+![Picture](Assets/task_2/outpublic.png)
+
 ---
 
 ### 🔹 Step 3: Create message
@@ -126,12 +146,14 @@ openssl rsa -pubout -in private.pem -out public.pem
 echo "This is a secret message" > message.txt
 ```
 
+![Picture](Assets/task_2/message.png)
+
 ---
 
 ### 🔹 Step 4: Encrypt with public key
 
 ```bash
-openssl rsautl -encrypt -inkey public.pem -pubin -in message.txt -out message.enc
+openssl pkeyutl -encrypt -inkey public.pem -pubin -in message.txt -out message.enc
 ```
 
 🧾 Flags
@@ -147,10 +169,12 @@ openssl rsautl -encrypt -inkey public.pem -pubin -in message.txt -out message.en
 ### 🔹 Step 5: Decrypt with private key
 
 ```bash
-openssl rsautl -decrypt -inkey private.pem -in message.enc -out message-decrypted.txt
+openssl pkeyutl -decrypt -inkey private.pem -in message.enc -out message-decrypted.txt
 ```
 
 🧾 Use `private.pem` to decrypt the encrypted message.
+
+![Picture](Assets/task_2/enc_dec.png)
 
 ---
 
@@ -161,6 +185,8 @@ cat message-decrypted.txt
 ```
 
 ✅ Shows the decrypted message. Should match the original.
+
+[Picture](Assets/task_2/show.png)
 
 ---
 
@@ -183,6 +209,8 @@ cat message-decrypted.txt
 echo "Luqman Aziem | 123456" > black.txt
 ```
 
+![Picture]()
+
 ---
 
 ### 🔹 Step 2: Hash the file
@@ -191,10 +219,12 @@ echo "Luqman Aziem | 123456" > black.txt
 openssl dgst -sha256 black.txt
 ```
 
-### 🧾 Flags:
+🧾 Flags:
 
 - `dgst` ➜ digest (hashing) tool
 - `-sha256` ➜ use SHA-256 algorithm
+
+![Picture](Assets/task_3/hashing.png)
 
 ---
 
@@ -206,6 +236,8 @@ echo " " >> black.txt
 
 Adds just a space.
 
+![Picture](Assets/task_3/change.png)
+
 ---
 
 ### 🔹 Step 4: Hash again
@@ -215,6 +247,8 @@ openssl dgst -sha256 black.txt
 ```
 
 ✅ You’ll see a completely **different hash**.
+
+![Picture](Assets/task_3/hashagain.png)
 
 ---
 
@@ -226,6 +260,8 @@ openssl dgst -sha256 black.txt
 
 <br><br>
 
+![Picture]()
+
 ---
 ---
 
@@ -236,6 +272,8 @@ openssl dgst -sha256 black.txt
 ```bash
 echo "Digital signature test file" > sign.txt
 ```
+
+![Picture](Assets/task_4/message.png)
 
 ---
 
@@ -252,6 +290,8 @@ openssl dgst -sha256 -sign private.pem -out sign.sha256 sign.txt
 - `-out` ➜ where to save the signature
 - `-sha256` ➜ hashing algorithm used before signing
 
+![Picture](Assets/task_4/signing.png)
+
 ---
 
 ### 🔹 Step 3: Verify with public key
@@ -267,6 +307,12 @@ openssl dgst -sha256 -verify public.pem -signature sign.sha256 sign.txt
 
 ✅ If no changes, output = `Verified OK`.
 
+![Picture](Assets/task_4/verify_success.png)
+
+Viewing hash
+
+![Picture](Assets/task_4/view_enc_message.png)
+
 ---
 
 ### 🔹 Step 4: Tamper the file
@@ -274,6 +320,8 @@ openssl dgst -sha256 -verify public.pem -signature sign.sha256 sign.txt
 ```bash
 echo "Tampered!" >> sign.txt
 ```
+
+![Picture](Assets/task_4/tempering.png)
 
 ---
 
@@ -284,6 +332,8 @@ openssl dgst -sha256 -verify public.pem -signature sign.sha256 sign.txt
 ```
 
 ❌ Output: `Verification Failure`
+
+![Picture](Assets/task_4/verify_failure.png)
 
 ---
 

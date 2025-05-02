@@ -82,8 +82,6 @@ openssl enc -aes-256-cbc -d -in secret.enc -out secret-decrypted.txt
 - `-d` ➜ decrypt mode
 - Rest are same as encryption
 
-![Picture](Assets/task_1/decrypt.png)
-
 ---
 
 ### 🔹 Step 4: Compare decrypted file
@@ -94,7 +92,7 @@ cat secret-decrypted.txt
 
 ✅ Confirms if decryption matches original.
 
-![Picture](Assets/task_1/show.png)
+![Picture](Assets/task_1/decrypt.png)
 
 ---
 

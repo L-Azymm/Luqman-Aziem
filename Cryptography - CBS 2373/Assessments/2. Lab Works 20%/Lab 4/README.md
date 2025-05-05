@@ -56,6 +56,27 @@ Since `pycryptodome` covers all that are needed in this lab
 
 📜 Code T1
 
+```py
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
+
+def aes_encrypt_decrypt():
+    key = get_random_bytes(32)  # 256-bit key
+    cipher = AES.new(key, AES.MODE_CBC)  # CBC mode
+    plaintext = b"Cryptography Lab by Your Name, YourID!"
+    ciphertext = cipher.encrypt(pad(plaintext, AES.block_size))
+    iv = cipher.iv
+
+    decipher = AES.new(key, AES.MODE_CBC, iv=iv)
+    decrypted = unpad(decipher.decrypt(ciphertext), AES.block_size)
+
+    print(f"Original: {plaintext.decode()}")
+    print(f"Decrypted: {decrypted.decode()}")
+
+aes_encrypt_decrypt()
+```
+
 ### 🧠 Explanation for AES
 
 - Uses the same key for both encryption and decryption.
@@ -75,6 +96,29 @@ Since `pycryptodome` covers all that are needed in this lab
 
 📜 Code T2
 
+```py
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+
+def rsa_encrypt_decrypt():
+    key = RSA.generate(2048)
+    private_key = key.export_key()
+    public_key = key.publickey().export_key()
+
+    cipher = PKCS1_OAEP.new(RSA.import_key(public_key))
+    plaintext = b"Secret Message"
+    ciphertext = cipher.encrypt(plaintext)
+
+    decipher = PKCS1_OAEP.new(RSA.import_key(private_key))
+    decrypted = decipher.decrypt(ciphertext)
+
+    print(f"Original: {plaintext.decode()}")
+    print(f"Decrypted: {decrypted.decode()}")
+
+rsa_encrypt_decrypt()
+
+```
+
 ### 🧠 Explanation for RSA
 
 - Uses two keys: public key (encrypt) and private key (decrypt).
@@ -93,6 +137,22 @@ Since `pycryptodome` covers all that are needed in this lab
 
 📜 Code T3
 
+```py
+import hashlib
+
+def compute_sha256(data):
+    sha = hashlib.sha256()
+    sha.update(data)
+    return sha.hexdigest()
+
+message1 = b"Hello Lab 4 - Original"
+message2 = b"Hello Lab 4 - Modified"
+
+print(f"Hash 1: {compute_sha256(message1)}")
+print(f"Hash 2: {compute_sha256(message2)}")
+
+```
+
 🧠 Explanation
 
 - One-way function: cannot retrieve the original input.
@@ -110,6 +170,30 @@ Since `pycryptodome` covers all that are needed in this lab
 ---
 
 📜 Code T4
+
+```py
+from Crypto.Signature import pkcs1_15
+from Crypto.Hash import SHA256
+
+def digital_signature():
+    key = RSA.generate(2048)
+    private_key = key.export_key()
+    public_key = key.publickey().export_key()
+
+    message = b"Important Lab Document"
+    hash_obj = SHA256.new(message)
+    signature = pkcs1_15.new(key).sign(hash_obj)
+
+    verifier = pkcs1_15.new(RSA.import_key(public_key))
+    try:
+        verifier.verify(hash_obj, signature)
+        print("Signature Valid")
+    except (ValueError, TypeError):
+        print("Signature Invalid")
+
+digital_signature()
+
+```
 
 🧠 Explanation
 

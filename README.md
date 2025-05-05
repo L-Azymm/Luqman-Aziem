@@ -18,7 +18,7 @@ Welcome to my **Cryptography** coursework repository. This includes all **assign
   
 - [Lab 3](https://github.com/L-Azymm/Luqman-Aziem/blob/main/Cryptography%20-%20CBS%202373/Assessments/2.%20Lab%20Works%2020%25/Lab%203/Lab_3.md)
   
-- [Lab 4](Cryptography - CBS 2373/Assessments/2. Lab Works 20%/Lab 4)
+- [Lab 4](https://github.com/L-Azymm/Luqman-Aziem/tree/main/Cryptography%20-%20CBS%202373/Assessments/2.%20Lab%20Works%2020%25/Lab%204)
 
 ### 🧠 3. Theory Test (30%)
 

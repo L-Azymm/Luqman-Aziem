@@ -28,22 +28,20 @@ This lab helps you understand and implement fundamental cryptographic techniques
 Run this command in your terminal to install necessary libraries:
 
 ```bash
-pip install pycryptodome cryptography rsa
-```
-
-| Library      | Purpose                                                                                 | Use Case in Lab 4                                                |
-| ------------ | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| pycryptodome | A self-contained Python library for cryptographic functions like AES, RSA, and hashing. | Used for AES encryption, RSA encryption, and digital signatures. |
-| cryptography | Another popular cryptography library offering secure primitives and recipes.            | Not used in this lab, but it's an alternative to pycryptodome.   |
-| rsa          | A lightweight Python module focused only on RSA encryption/decryption and signing.      | Also not used here, since pycryptodome already covers RSA.       |
-
-Or you can just run
-
-```bash
 pip install pycryptodome
 ```
 
-Since `pycryptodome` covers all that are needed in this lab
+There are also alternatives that are available intead of `pycryptodome`
+
+But it is recommended, since `pycryptodome` covers all that are needed in this lab
+
+| Library      | Purpose                                                                                 | Use Case in Lab 4                                                |
+| ------------ | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `pycryptodome` | A self-contained Python library for cryptographic functions like AES, RSA, and hashing. | Used for AES encryption, RSA encryption, and digital signatures. |
+| `cryptography` | Another popular cryptography library offering secure primitives and recipes.            | Not used in this lab, but it's an alternative to pycryptodome.   |
+| `rsa`          | A lightweight Python module focused only on RSA encryption/decryption and signing.      | Also not used here, since pycryptodome already covers RSA.       |
+| `hashlib`      | Hashing (SHA-256, SHA-512, etc.)                                                        | Not Used, bust also an alternative for hashing                   |
+| `PyNaCl`       | Encryption, signatures using libsodium                                                  | Limited to Ed25519, Curve25519 (not RSA)                         |
 
 <br></br>
 
@@ -79,7 +77,6 @@ def aes_encrypt_decrypt_user_input():
     print(f"Decrypted: {decrypted.decode()}")
 
 aes_encrypt_decrypt_user_input()
-
 ```
 
 ### 🧠 Explanation for AES

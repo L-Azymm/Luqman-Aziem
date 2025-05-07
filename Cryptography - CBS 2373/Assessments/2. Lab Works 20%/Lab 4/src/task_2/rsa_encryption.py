@@ -1,19 +1,20 @@
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
-def rsa_demo():
+def rsa_encrypt_decrypt_user_input():
     key = RSA.generate(2048)
-    private = key.export_key()
-    public = key.publickey().export_key()
+    private_key = key.export_key()
+    public_key = key.publickey().export_key()
 
-    cipher = PKCS1_OAEP.new(RSA.import_key(public))
-    plaintext = b"My RSA Message"
+    plaintext = input("Enter a short message to encrypt using RSA: ").encode()
+
+    cipher = PKCS1_OAEP.new(RSA.import_key(public_key))
     ciphertext = cipher.encrypt(plaintext)
 
-    decipher = PKCS1_OAEP.new(RSA.import_key(private))
+    decipher = PKCS1_OAEP.new(RSA.import_key(private_key))
     decrypted = decipher.decrypt(ciphertext)
 
-    print("Original:", plaintext.decode())
-    print("Decrypted:", decrypted.decode())
+    print(f"\nEncrypted (hex): {ciphertext.hex()}")
+    print(f"Decrypted: {decrypted.decode()}")
 
-rsa_demo()
+rsa_encrypt_decrypt_user_input()

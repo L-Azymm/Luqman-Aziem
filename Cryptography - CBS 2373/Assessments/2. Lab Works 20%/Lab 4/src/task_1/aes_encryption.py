@@ -2,18 +2,19 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
 
-def aes_demo():
-    key = get_random_bytes(32)  # 256-bit key
-    cipher = AES.new(key, AES.MODE_CBC)  # CBC mode
-    message = b"Cryptography Lab by Your Name, Your ID!"
-    
-    ciphertext = cipher.encrypt(pad(message, AES.block_size))
+def aes_encrypt_decrypt_user_input():
+    key = get_random_bytes(32)  # AES-256
+    cipher = AES.new(key, AES.MODE_CBC)
+
+    plaintext = input("Enter a message to encrypt using AES: ").encode()
+    ciphertext = cipher.encrypt(pad(plaintext, AES.block_size))
     iv = cipher.iv
 
-    decipher = AES.new(key, AES.MODE_CBC, iv)
+    # Decrypt
+    decipher = AES.new(key, AES.MODE_CBC, iv=iv)
     decrypted = unpad(decipher.decrypt(ciphertext), AES.block_size)
 
-    print("Original:", message.decode())
-    print("Decrypted:", decrypted.decode())
+    print(f"\nEncrypted (hex): {ciphertext.hex()}")
+    print(f"Decrypted: {decrypted.decode()}")
 
-aes_demo()
+aes_encrypt_decrypt_user_input()

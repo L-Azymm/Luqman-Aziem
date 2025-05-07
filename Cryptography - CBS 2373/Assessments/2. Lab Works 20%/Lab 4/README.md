@@ -61,20 +61,23 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
 
-def aes_encrypt_decrypt():
-    key = get_random_bytes(32)  # 256-bit key
-    cipher = AES.new(key, AES.MODE_CBC)  # CBC mode
-    plaintext = b"Cryptography Lab by Your Name, YourID!"
+def aes_encrypt_decrypt_user_input():
+    key = get_random_bytes(32)  # AES-256
+    cipher = AES.new(key, AES.MODE_CBC)
+
+    plaintext = input("Enter a message to encrypt using AES: ").encode()
     ciphertext = cipher.encrypt(pad(plaintext, AES.block_size))
     iv = cipher.iv
 
+    # Decrypt
     decipher = AES.new(key, AES.MODE_CBC, iv=iv)
     decrypted = unpad(decipher.decrypt(ciphertext), AES.block_size)
 
-    print(f"Original: {plaintext.decode()}")
+    print(f"\nEncrypted (hex): {ciphertext.hex()}")
     print(f"Decrypted: {decrypted.decode()}")
 
-aes_encrypt_decrypt()
+aes_encrypt_decrypt_user_input()
+
 ```
 
 ### 🧠 Explanation for AES
@@ -100,23 +103,23 @@ aes_encrypt_decrypt()
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
-def rsa_encrypt_decrypt():
+def rsa_encrypt_decrypt_user_input():
     key = RSA.generate(2048)
     private_key = key.export_key()
     public_key = key.publickey().export_key()
 
+    plaintext = input("Enter a short message to encrypt using RSA: ").encode()
+
     cipher = PKCS1_OAEP.new(RSA.import_key(public_key))
-    plaintext = b"Secret Message"
     ciphertext = cipher.encrypt(plaintext)
 
     decipher = PKCS1_OAEP.new(RSA.import_key(private_key))
     decrypted = decipher.decrypt(ciphertext)
 
-    print(f"Original: {plaintext.decode()}")
+    print(f"\nEncrypted (hex): {ciphertext.hex()}")
     print(f"Decrypted: {decrypted.decode()}")
 
-rsa_encrypt_decrypt()
-
+rsa_encrypt_decrypt_user_input()
 ```
 
 ### 🧠 Explanation for RSA
@@ -138,19 +141,26 @@ rsa_encrypt_decrypt()
 📜 Code T3
 
 ```py
-import hashlib
+import hashlib  
 
 def compute_sha256(data):
-    sha = hashlib.sha256()
-    sha.update(data)
+    sha = hashlib.sha256()  
+    sha.update(data) 
     return sha.hexdigest()
 
-message1 = b"Hello Lab 4 - Original"
-message2 = b"Hello Lab 4 - Modified"
+msg1 = input("Enter first message to hash: ").encode() 
+msg2 = input("Enter second message to hash: ").encode()
 
-print(f"Hash 1: {compute_sha256(message1)}")
-print(f"Hash 2: {compute_sha256(message2)}")
+hash1 = compute_sha256(msg1)
+hash2 = compute_sha256(msg2)
 
+print(f"\nHash 1: {hash1}")
+print(f"Hash 2: {hash2}")
+
+if hash1 == hash2:
+    print("✅ Hashes are the same (messages are identical)")
+else:
+    print("❌ Hashes are different (messages are not the same)")
 ```
 
 🧠 Explanation
@@ -172,27 +182,35 @@ print(f"Hash 2: {compute_sha256(message2)}")
 📜 Code T4
 
 ```py
-from Crypto.Signature import pkcs1_15
-from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA  
+from Crypto.Signature import pkcs1_15  
+from Crypto.Hash import SHA256  
 
-def digital_signature():
+def digital_signature_user_input():
     key = RSA.generate(2048)
     private_key = key.export_key()
     public_key = key.publickey().export_key()
 
-    message = b"Important Lab Document"
+    message = input("Enter a message to digitally sign: ").encode()
     hash_obj = SHA256.new(message)
     signature = pkcs1_15.new(key).sign(hash_obj)
+    print(f"\n✅ Digital Signature (hex): {signature.hex()}")
 
+    choice = input("\nDo you want to tamper with the message before verification? (yes/no): ").lower()
+    if choice == 'yes':
+        tampered_message = input("Enter a DIFFERENT (fake) message to simulate tampering: ").encode()
+    else:
+        tampered_message = message
+
+    tampered_hash = SHA256.new(tampered_message)
     verifier = pkcs1_15.new(RSA.import_key(public_key))
     try:
-        verifier.verify(hash_obj, signature)
-        print("Signature Valid")
+        verifier.verify(tampered_hash, signature)
+        print("✅ Signature is valid. The message has not been changed.")
     except (ValueError, TypeError):
-        print("Signature Invalid")
+        print("❌ Signature is invalid. The message may have been tampered.")
 
-digital_signature()
-
+digital_signature_user_input()
 ```
 
 🧠 Explanation

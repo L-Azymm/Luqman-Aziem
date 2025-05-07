@@ -1,13 +1,20 @@
-import hashlib
+import hashlib  
 
-def sha256_demo():
-    msg1 = b"Hello Lab 4"
-    msg2 = b"Hello Lab 4 Modified"
+def compute_sha256(data):
+    sha = hashlib.sha256()  
+    sha.update(data) 
+    return sha.hexdigest()
 
-    hash1 = hashlib.sha256(msg1).hexdigest()
-    hash2 = hashlib.sha256(msg2).hexdigest()
+msg1 = input("Enter first message to hash: ").encode() 
+msg2 = input("Enter second message to hash: ").encode()
 
-    print("Hash 1:", hash1)
-    print("Hash 2:", hash2)
+hash1 = compute_sha256(msg1)
+hash2 = compute_sha256(msg2)
 
-sha256_demo()
+print(f"\nHash 1: {hash1}")
+print(f"Hash 2: {hash2}")
+
+if hash1 == hash2:
+    print("✅ Hashes are the same (messages are identical)")
+else:
+    print("❌ Hashes are different (messages are not the same)")

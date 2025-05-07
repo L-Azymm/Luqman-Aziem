@@ -45,6 +45,8 @@ pip install pycryptodome
 
 Since `pycryptodome` covers all that are needed in this lab
 
+<br></br>
+
 ---
 ---
 
@@ -88,6 +90,8 @@ aes_encrypt_decrypt_user_input()
 - Proper padding is needed to handle messages of different lengths.
 - Real-world use: VPNs, encrypted file storage.
 
+<br></br>
+
 ---
 ---
 
@@ -129,6 +133,8 @@ rsa_encrypt_decrypt_user_input()
 - OAEP padding adds security against chosen ciphertext attacks.
 - Real-world use: SSL/TLS, secure emails (PGP), key exchange.
 
+<br></br>
+
 ---
 ---
 
@@ -169,6 +175,8 @@ else:
 - Produces a fixed 256-bit hash value for any input.
 - Sensitive to changes (even a 1-letter change makes a big difference).
 - Real-world use: password hashing, data integrity, blockchain.
+
+<br></br>
 
 ---
 ---

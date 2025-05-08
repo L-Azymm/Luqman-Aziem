@@ -9,7 +9,7 @@ import hashlib
 
 def aes_encrypt_decrypt():
     print("\n=== AES Symmetric Encryption ===")
-    key = get_random_bytes(32)  # 256-bit key
+    key = get_random_bytes(32) 
     cipher = AES.new(key, AES.MODE_CBC)
 
     message = input("Enter a message to encrypt with AES: ").encode()
@@ -71,20 +71,16 @@ def digital_signature():
 
     message = input("Enter a message to digitally sign: ").encode()
 
-    # Step 1: Hash the message
     hash_obj = SHA256.new(message)
 
-    # Step 2: Sign the hash with private key
     signature = pkcs1_15.new(key).sign(hash_obj)
     print(f"\nDigital Signature (hex): {signature.hex()}")
 
-    # Step 3: Tamper test (optional)
     tamper = input("Do you want to tamper with the message before verification? (yes/no): ").lower()
     if tamper == "yes":
         message = b"tampered message"
         print("⚠️ Message has been tampered.")
 
-    # Step 4: Verify signature with public key
     try:
         verifier = pkcs1_15.new(RSA.import_key(public_key))
         verifier.verify(SHA256.new(message), signature)
@@ -93,7 +89,6 @@ def digital_signature():
         print("❌ Signature is invalid. The message may have been tampered.")
 
 
-# ====== Menu Loop ======
 while True:
     print("\n=== Cryptography Lab Menu ===")
     print("1. AES (Symmetric Encryption)")

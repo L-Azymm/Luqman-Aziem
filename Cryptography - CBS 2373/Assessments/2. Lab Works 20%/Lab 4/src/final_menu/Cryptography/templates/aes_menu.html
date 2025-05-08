@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>AES Operations</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card crypto-card">
+            <div class="card-body">
+                <h5 class="card-title">Encrypt</h5>
+                <p class="card-text">Encrypt a message using AES</p>
+                <a href="{{ url_for('aes_encrypt') }}" class="btn btn-primary">Go to Encrypt</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card crypto-card">
+            <div class="card-body">
+                <h5 class="card-title">Decrypt</h5>
+                <p class="card-text">Decrypt an AES-encrypted message</p>
+                <a href="{{ url_for('aes_decrypt') }}" class="btn btn-primary">Go to Decrypt</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

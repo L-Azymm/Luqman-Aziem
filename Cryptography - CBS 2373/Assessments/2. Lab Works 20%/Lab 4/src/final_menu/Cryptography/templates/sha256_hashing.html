@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>SHA-256 Hashing</h2>
+        <form method="POST" action="{{ url_for('sha256_hashing') }}">
+            <div class="mb-3">
+                <label for="msg1" class="form-label">First Message</label>
+                <textarea class="form-control" id="msg1" name="msg1" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="msg2" class="form-label">Second Message</label>
+                <textarea class="form-control" id="msg2" name="msg2" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Compute Hashes</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

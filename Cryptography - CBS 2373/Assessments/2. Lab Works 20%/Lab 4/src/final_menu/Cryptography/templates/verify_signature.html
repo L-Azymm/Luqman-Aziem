@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>Verify Signature</h2>
+        <form method="POST" action="{{ url_for('verify_signature') }}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="msg_file" class="form-label">Message File</label>
+                <input class="form-control" type="file" id="msg_file" name="msg_file" required>
+                <div class="form-text">Original message file (txt format)</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="sig_file" class="form-label">Signature File</label>
+                <input class="form-control" type="file" id="sig_file" name="sig_file" required>
+                <div class="form-text">Digital signature file (bin format)</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="pub_file" class="form-label">Public Key File</label>
+                <input class="form-control" type="file" id="pub_file" name="pub_file" required>
+                <div class="form-text">Public key file (pem format)</div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Verify Signature</button>
+            <a href="{{ url_for('signature_menu') }}" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

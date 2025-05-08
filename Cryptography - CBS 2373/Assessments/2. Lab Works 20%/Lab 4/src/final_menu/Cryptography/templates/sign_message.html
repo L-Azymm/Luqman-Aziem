@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>Sign Message</h2>
+        <form method="POST" action="{{ url_for('sign_message') }}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="message" class="form-label">Message to Sign</label>
+                <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="use_custom_key" name="use_custom_key">
+                <label class="form-check-label" for="use_custom_key">Use existing private key</label>
+            </div>
+
+            <div class="mb-3" id="keyUploadSection" style="display: none;">
+                <label for="priv_key_file" class="form-label">Private Key File</label>
+                <input class="form-control" type="file" id="priv_key_file" name="priv_key_file">
+                <div class="form-text">Upload your existing private key (PEM format)</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="sig_file" class="form-label">Signature Filename</label>
+                <input type="text" class="form-control" id="sig_file" name="sig_file" value="sig.bin" required>
+            </div>
+            <div class="mb-3">
+                <label for="pub_file" class="form-label">Public Key Filename</label>
+                <input type="text" class="form-control" id="pub_file" name="pub_file" value="pub.pem" required>
+            </div>
+            <div class="mb-3">
+                <label for="msg_file" class="form-label">Message Filename</label>
+                <input type="text" class="form-control" id="msg_file" name="msg_file" value="msg.txt" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign Message</button>
+            <a href="{{ url_for('signature_menu') }}" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('use_custom_key').addEventListener('change', function() {
+    const keyUploadSection = document.getElementById('keyUploadSection');
+    if (this.checked) {
+        keyUploadSection.style.display = 'block';
+        document.getElementById('priv_key_file').setAttribute('required', '');
+    } else {
+        keyUploadSection.style.display = 'none';
+        document.getElementById('priv_key_file').removeAttribute('required');
+    }
+});
+</script>
+{% endblock %}

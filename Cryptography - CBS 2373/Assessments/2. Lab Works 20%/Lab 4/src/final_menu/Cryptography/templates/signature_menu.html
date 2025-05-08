@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">Digital Signature Operations</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Sign Message</h5>
+                <p class="card-text">Create a digital signature for a message using either a new key pair or your existing private key.</p>
+                <div class="mt-3">
+                    <a href="{{ url_for('sign_message') }}" class="btn btn-primary">Sign Message</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Verify Signature</h5>
+                <p class="card-text">Verify the authenticity of a digitally signed message using the public key.</p>
+                <div class="mt-3">
+                    <a href="{{ url_for('verify_signature') }}" class="btn btn-primary">Verify Signature</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">How Digital Signatures Work</h5>
+                <ul class="mb-0">
+                    <li><strong>Signing:</strong> Creates a unique fingerprint of your message using your private key</li>
+                    <li><strong>Verification:</strong> Uses the public key to confirm the message hasn't been altered</li>
+                    <li><strong>Security:</strong> Only the holder of the private key can create valid signatures</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

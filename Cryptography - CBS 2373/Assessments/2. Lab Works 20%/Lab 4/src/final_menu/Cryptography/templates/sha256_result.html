@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>SHA-256 Hashing Results</h2>
+        
+        <div class="mb-4">
+            <h5>First Message Hash:</h5>
+            <div class="p-3 bg-light rounded">
+                <code>{{ result.hash1 }}</code>
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <h5>Second Message Hash:</h5>
+            <div class="p-3 bg-light rounded">
+                <code>{{ result.hash2 }}</code>
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <h5>Comparison Result:</h5>
+            <div class="p-3 rounded {{ 'bg-success text-white' if result.match else 'bg-danger text-white' }}">
+                {% if result.match %}
+                    ✅ Hashes match
+                {% else %}
+                    ❌ Hashes are different
+                {% endif %}
+            </div>
+        </div>
+        
+        <a href="{{ url_for('sha256_hashing') }}" class="btn btn-primary">New Comparison</a>
+    </div>
+</div>
+{% endblock %}

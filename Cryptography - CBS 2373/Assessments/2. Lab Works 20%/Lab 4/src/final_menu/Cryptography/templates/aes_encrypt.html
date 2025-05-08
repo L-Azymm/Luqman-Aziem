@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>AES Encryption</h2>
+        <form method="POST" action="{{ url_for('aes_encrypt') }}">
+            <div class="mb-3">
+                <label for="message" class="form-label">Message to Encrypt</label>
+                <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="enc_file" class="form-label">Encrypted Output Filename</label>
+                <input type="text" class="form-control" id="enc_file" name="enc_file" value="message.enc" required>
+            </div>
+            <div class="mb-3">
+                <label for="key_file" class="form-label">Key Filename</label>
+                <input type="text" class="form-control" id="key_file" name="key_file" value="key.key" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Encrypt</button>
+            <a href="{{ url_for('aes_menu') }}" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

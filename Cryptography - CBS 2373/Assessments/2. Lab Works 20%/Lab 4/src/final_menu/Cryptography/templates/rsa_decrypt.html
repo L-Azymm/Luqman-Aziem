@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>RSA Decryption</h2>
+        <form method="POST" action="{{ url_for('rsa_decrypt') }}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="enc_file" class="form-label">Encrypted File</label>
+                <input class="form-control" type="file" id="enc_file" name="enc_file" required>
+            </div>
+            <div class="mb-3">
+                <label for="priv_file" class="form-label">Private Key File</label>
+                <input class="form-control" type="file" id="priv_file" name="priv_file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Decrypt</button>
+            <a href="{{ url_for('rsa_menu') }}" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

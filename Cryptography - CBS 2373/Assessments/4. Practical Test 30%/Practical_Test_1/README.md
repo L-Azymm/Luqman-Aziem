@@ -40,9 +40,11 @@ gpg --list-keys
 **Output:**
 
 - Successfully generated key pair
+  
 ![output](Assets/task_1/fullgenkey.png)
 
 - GPG fingerprint is shown via `gpg --list-keys`
+  
 ![output](Assets/task_1/gpglistkeys.png)
 
 <br><br>
@@ -64,12 +66,15 @@ gpg -d myfault.txt.gpg
 ```
 
 All the output:
+
 ![output](Assets/task_2/echo.png)
 
 The requirements of Passphrase
+
 ![output](Assets/task_2/pass.png)
 
 The decrypted file:
+
 ![output](Assets/task_2/decrypt.png)
 
 - ✅ Successfully decrypted and verified the contents.
@@ -92,6 +97,7 @@ gpg --verify signed_message.txt.asc
 ```
 
 All the output:
+
 ![output](Assets/task_3/allcomm.png)
 
 - ✅ Signature verified using GPG.
@@ -201,9 +207,11 @@ echo <hash> > hash<n>.txt
 ## Hash 1
 
 Using CyberChef to change it from Base64 to Caesar Cipher:
+
 ![output](Assets/task_5/cyberchef.png)
 
 Using Caesar Cipher Decoder to decrypt the cipher:
+
 ![output](Assets/task_5/caesarcode.png)
 
 The message was: `Senang Je Soalan Ni Kaan`
@@ -215,9 +223,11 @@ The message was: `Senang Je Soalan Ni Kaan`
 ## Hash 2
 
 Identify the hash used:
+
 ![output](Assets/task_5/hashid_hash2.png)
 
 Cracking the hash with the wordlist `p1wordlist.txt`
+
 ![output](Assets/task_5/hash2.png)
 
 The message was: `Assalamualaikum Semua`
@@ -229,9 +239,11 @@ The message was: `Assalamualaikum Semua`
 ## Hash 3
 
 Identify the hash used:
+
 ![output](Assets/task_5/hashid_hash3.png)
 
 Cracking the hash with the wordlist `p1wordlist.txt`
+
 ![output](Assets/task_5/hash3.png)
 
 The message was: `Begitulah Lumrah Kehidupan`
@@ -242,10 +254,10 @@ The message was: `Begitulah Lumrah Kehidupan`
 
 ## Summary
 
-| Hash                                                               | Likely Type | Cracked? | Plaintext                                  |   Method           |
-| ------------------------------------------------------------------ | ----------- | -------- | ------------------------------------------  | ---------------   |
-| `SnZlcmV4IEF2IEpmcmNyZSBFeiBCcnJl`                                 | Base64      | ✅       | _Derived using Base64 decoding and shifts_ | Manual decoding   |
-| `7b77ca1e2b3e7228a82ecbc7ca0e6b52`                                 | MD5         | ✅       | -                                          | John              |
-| `e583cee9ab9d7626c970fd6e9938fcb2d06fbbd12f1c1a3c6902a215808c825c` | SHA-256     | ✅       | -                                          | John              |
+| Hash                                                               | Likely Type | Cracked? | Plaintext                              |   Method          |
+| ------------------------------------------------------------------ | ----------- | -------- | ---------------------------------------| ---------------   |
+| `SnZlcmV4IEF2IEpmcmNyZSBFeiBCcnJl`                                 | Base64 + Caesar Cipher    | ✅       | Senang Je Soalan Ni Kaan               | Manual decoding   |
+| `7b77ca1e2b3e7228a82ecbc7ca0e6b52`                                 | MD5         | ✅       | Assalamualaikum Semua                  | John              |
+| `e583cee9ab9d7626c970fd6e9938fcb2d06fbbd12f1c1a3c6902a215808c825c` | SHA-256     | ✅       | Begitulah Lumrah Kehidupan             | John              |
 
 ---

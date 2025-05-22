@@ -1,4 +1,4 @@
-# 🛡️ Lab 4: Cryptographic Algorithms in Python
+# 🛡️ Lab 4 SOLO: Cryptographic Algorithms in Python
 
 ---
 

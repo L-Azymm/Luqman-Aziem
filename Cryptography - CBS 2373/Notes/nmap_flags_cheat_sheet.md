@@ -2,6 +2,7 @@
 # Nmap Command Flags Cheat Sheet
 
 ## 1. Target Specification
+
 | Flag | Description |
 |------|-------------|
 | `-iL <inputfile>` | Scan targets from a file |
@@ -10,6 +11,7 @@
 | `--excludefile <file>` | Exclude targets from a file |
 
 ## 2. Scan Techniques
+
 | Flag | Description |
 |------|-------------|
 | `-sS` | TCP SYN (stealth) scan |
@@ -23,6 +25,7 @@
 | `-sM` | Maimon scan |
 
 ## 3. Port Specification
+
 | Flag | Description |
 |------|-------------|
 | `-p <ports>` | Specify ports to scan (e.g., `-p 22,80,443` or `-p 1-1000`) |
@@ -31,6 +34,7 @@
 | `--port-ratio <ratio>` | Scan ports with a ratio of popularity (0.0–1.0) |
 
 ## 4. Service and Version Detection
+
 | Flag | Description |
 |------|-------------|
 | `-sV` | Detect service/version info |
@@ -39,6 +43,7 @@
 | `--version-all` | Try every probe for version detection |
 
 ## 5. OS Detection
+
 | Flag | Description |
 |------|-------------|
 | `-O` | Enable OS detection |
@@ -46,6 +51,7 @@
 | `--osscan-limit` | Limit OS detection to promising targets |
 
 ## 6. Script Scanning
+
 | Flag | Description |
 |------|-------------|
 | `-sC` | Run default scripts |
@@ -54,6 +60,7 @@
 | `--script-help=<script>` | Show help for scripts |
 
 ## 7. Timing and Performance
+
 | Flag | Description |
 |------|-------------|
 | `-T<0-5>` | Timing template (0 = paranoid, 5 = insane) |
@@ -62,6 +69,7 @@
 | `--max-retries <num>` | Max probe retries |
 
 ## 8. Output Formats
+
 | Flag | Description |
 |------|-------------|
 | `-oN <file>` | Normal output |
@@ -70,6 +78,7 @@
 | `-oA <basename>` | Output in all formats (`.nmap`, `.xml`, `.gnmap`) |
 
 ## 9. Firewall Evasion and Spoofing
+
 | Flag | Description |
 |------|-------------|
 | `-D <decoys>` | Use decoy addresses |
@@ -81,6 +90,7 @@
 | `--badsum` | Send packets with bad checksums |
 
 ## 10. Host Discovery
+
 | Flag | Description |
 |------|-------------|
 | `-sn` | Ping scan only (host discovery) |
@@ -93,6 +103,7 @@
 | `-PM` | ICMP Netmask ping |
 
 ## 11. Miscellaneous
+
 | Flag | Description |
 |------|-------------|
 | `-v`, `-vv`, `-vvv` | Verbosity levels |

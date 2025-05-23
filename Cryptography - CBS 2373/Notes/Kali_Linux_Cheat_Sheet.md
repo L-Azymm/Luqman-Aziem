@@ -2,6 +2,7 @@
 # Kali Linux Cheat Sheet
 
 ## Basic Linux Commands
+
 | Command         | Description                |
 |----------------|----------------------------|
 | `pwd`           | Show current directory     |
@@ -16,6 +17,7 @@
 ---
 
 ## Networking Tools
+
 | Tool                        | Usage                                 |
 |-----------------------------|---------------------------------------|
 | `nmap -sS -A [IP]`          | Scan ports & detect OS/services       |
@@ -28,6 +30,7 @@
 ---
 
 ## Password Cracking
+
 | Tool                                         | Usage                                 |
 |----------------------------------------------|---------------------------------------|
 | `john [hashfile]`                            | Crack passwords using John            |
@@ -37,6 +40,7 @@
 ---
 
 ## Web Exploitation
+
 | Tool                    | Usage                                     |
 |-------------------------|-------------------------------------------|
 | `sqlmap -u [url] --dbs` | SQL injection and dump databases          |
@@ -47,6 +51,7 @@
 ---
 
 ## Wireless Attacks
+
 | Tool                                     | Usage                                    |
 |------------------------------------------|------------------------------------------|
 | `airmon-ng start wlan0`                  | Enable monitor mode                      |
@@ -57,6 +62,7 @@
 ---
 
 ## Privilege Escalation
+
 | Command                      | Description                  |
 |------------------------------|------------------------------|
 | `sudo -l`                    | List allowed commands        |
@@ -67,6 +73,7 @@
 ---
 
 ## Exploitation Frameworks
+
 | Tool           | Usage                          |
 |----------------|--------------------------------|
 | `msfconsole`   | Start Metasploit Framework     |

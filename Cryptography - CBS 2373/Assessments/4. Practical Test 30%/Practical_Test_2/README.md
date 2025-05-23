@@ -2,19 +2,13 @@
 
 Hello and Assalamualaikum!
 
+👾*Zymm*👾 is Back,
+
+And for this new project:
+
 The goal was to reverse a binary file (simulated ransomware) to recover its encrypted contents using decompilation and analysis techniques.
 
 Imma provide ya fellas with the things you need and steps by steps for easir walkthrough but, before that, we need to do some prequisite
-
----
-
-## 📁 Given File
-
-This is the main star of our project, (Drum Rolls please)
-
-The malicious file that we gonna be Reverse engineer of
-
-- `gmi2025.exe` – suspected ransomware executable
 
 ---
 
@@ -46,13 +40,105 @@ pip install uncompyle6
   
 - (Optional) 7-Zip, Git, file explorer tools - Why optional? well its up to you if you wanna use this, but its gonna be **A LOT** and i mean **A WHOLE LOT** easier having this with ya
 
+## Additional Steps For Setting Up Your Tools
+
+This is an optional step that you can chosse either you want to do it or not, but i insist doing this because it will make your usage of the tool easier, so whats the harm i doing so right? C'mon lets do it
+
+Ok so first off this is only for the `umcompyle6` and `PyInstxtractor-ng` (i hate this name, its hard to remember and say🤣)
+
+after installing both of em using
+
+```powershell
+pip install uncompyle6
+
+pip install pyinstxtractor-ng
+```
+
+Use this command to see where was it installed files is,
+
+```powershell
+pip show uncompyle6
+
+pip show pyinstxtractor-ng
+```
+
+And you will see an output like this
+
+```powershell
+PS C:\Users\zymm> pip show uncompyle6
+Name: uncompyle6
+Version: 3.9.2
+Summary: Python cross-version byte-code library and disassembler
+Home-page: None
+Author: None
+Author-email: Rocky Bernstein <rb@dustyfeet.com>
+License: GPL
+Location: c:\users\zymm\appdata\local\programs\python\python38\lib\site-packages
+Requires: spark-parser, click, xdis
+Required-by:
+PS C:\Users\zymm>
+```
+
+And this
+
+```powershell
+PS C:\Users\zymm> pip show pyinstxtractor-ng
+Name: pyinstxtractor-ng
+Version: 2025.1.6
+Summary: PyInstaller Extractor Next Generation
+Home-page: None
+Author: extremecoders-re
+Author-email: None
+License: GPL-3.0-only
+Location: c:\users\zymm\appdata\local\programs\python\python38\lib\site-packages
+Requires: xdis, pycryptodome
+Required-by:
+PS C:\Users\zymm>
+```
+
+Next open up you search bar, and search `Environment Variables` and open it
+
+After that, try finding `User Variable` find `Path` and click Edit, click new to add a new path, and paste the path for the `uncompyle6` and `PyInstxtractor-ng`, and finally click `OK` to save,
+
+This will allow you to run both of em from anywhere premenatly, just be sure to get the path right
+
+So heres quick n' easy to follow:
+
+- Search Enviroment Variable
+
+![path](Assets/path/enviro.png)
+
+- Select Enviroment Variable
+
+![path](Assets/path/enviro2.png)
+
+- Select User Variable
+
+![path](Assets/path/user_enviro.png)
+
+- Paste path
+
+![path](Assets/path/add_path.png)
+
+- OK to save
+
 ---
 
-## 🧭 Step-by-Step Walkthrough
+## 📁 Given File
+
+This is the main star of our project, (Drum Rolls please)
+
+The malicious file that we gonna be Reverse engineer of
+
+- `example.exe` – suspected ransomware executable
+
+---
+
+## 🧭 いくぞ Blasting Off With Step-by-Step
 
 ## 1. 🕵️ Identify the Binary
 
-Ok so first off, we're gonna be using DIE, not death, `DIE (Detect It Easy)`, a bit exssive for e name eh? my thoughts too actually
+Ok so first off, we're gonna be using DIE, not death, `DIE (Detect It Easy)`, a bit exssive for a name eh? my thoughts too actually
 
 This will show you a brief info on the files or malware that you will be investigating
 
@@ -63,11 +149,13 @@ This will show you a brief info on the files or malware that you will be investi
 
 You gonna see things like what language it use, what was it packed with etc. for Example: `Python based` and `PyInstaller`
 
+---
+
 ## 2. 📦 Extract Contents from EXE
 
 ### Run pyinstxtractor-ng
 
-Ok now we gonna use `pyinstxtractor` to reverese it packaging. 
+Ok now we gonna use `pyinstxtractor` to reverese it packaging.
 
 Why? because after finding out the language it used, we're gonna need to find the pure coding file for reverse engineering
 
@@ -76,6 +164,8 @@ pyinstxtractor-ng.exe <filename>
 ```
 
 After running this command in your terminal, you can find that from the extension of `.exe.` you gonna find another with the extension of `.pyc`
+
+or even  a new folder like example.exe_extracted/ with some .pyc files inside. Well anywhich ones works fine 😉
 
 Now we're gonna focus on the `.pyc` file from now on
 
@@ -135,6 +225,7 @@ Lets lookout for thing like
 - Files
 - Names
 - Hash / Encryption Format
+- Functions
 
 ![Code]()
 

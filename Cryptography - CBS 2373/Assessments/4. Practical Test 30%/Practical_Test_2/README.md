@@ -10,6 +10,14 @@ The goal was to reverse a binary file (simulated ransomware) to recover its encr
 
 Imma provide ya fellas with the things you need and steps by steps for easir walkthrough but, before that, we need to do some prequisite
 
+Well we need to be ready to create a masterpiece, am i right?
+
+⚠️ WARNING ⚠️
+
+PLEASE REMEMBER AND TAKE NOTE THAT THIS PROJECT WAS RUN AND DID INSIDE A SAFE SPACE OF VIRTUAL MACHINE
+
+DO NOT ATTEMPT ON YOUR HOST DEVICE WHEN HADNDLING MALICIOUS FILES AND MALWARES
+
 ---
 
 ## 🧪 Objective
@@ -46,7 +54,7 @@ This is an optional step that you can chosse either you want to do it or not, bu
 
 Ok so first off this is only for the `umcompyle6` and `PyInstxtractor-ng` (i hate this name, its hard to remember and say🤣)
 
-after installing both of em using
+after installing both of em using this command
 
 ```powershell
 pip install uncompyle6
@@ -54,7 +62,7 @@ pip install uncompyle6
 pip install pyinstxtractor-ng
 ```
 
-Use this command to see where was it installed files is,
+Use this command to see where was it installed files is, this will *Show You The Way*, exacly, the path
 
 ```powershell
 pip show uncompyle6
@@ -62,7 +70,9 @@ pip show uncompyle6
 pip show pyinstxtractor-ng
 ```
 
-And you will see an output like this
+And you will see an output like this or maybe close to this, this is mine, so dont worry if its slightly different
+
+- `uncompyle6`
 
 ```powershell
 PS C:\Users\zymm> pip show uncompyle6
@@ -81,6 +91,8 @@ PS C:\Users\zymm>
 
 And this
 
+- `pyinstxtractor-ng`
+
 ```powershell
 PS C:\Users\zymm> pip show pyinstxtractor-ng
 Name: pyinstxtractor-ng
@@ -96,13 +108,17 @@ Required-by:
 PS C:\Users\zymm>
 ```
 
+You can see **A WHOLE LOT** of information about the tools, this will come in handy for other purposes
+
+---
+
 Next open up you search bar, and search `Environment Variables` and open it
 
 After that, try finding `User Variable` find `Path` and click Edit, click new to add a new path, and paste the path for the `uncompyle6` and `PyInstxtractor-ng`, and finally click `OK` to save,
 
-This will allow you to run both of em from anywhere premenatly, just be sure to get the path right
+This will allow you to run both of em from anywhere premenatly, just be sure to get the path right, because we want *Jalan yang Lurus dan Benar* 🤣
 
-So heres quick n' easy to follow:
+So heres quick n' easy to follow (with some pic for easier navigation):
 
 - Search Enviroment Variable
 
@@ -122,6 +138,10 @@ So heres quick n' easy to follow:
 
 - OK to save
 
+So after you're done with the paths, you will be able to run the executeables (`.exe`) from anywhere in your terminal,
+
+SEE! EASIER! no need for path, but im not saying paths is not important, well you do you
+
 ---
 
 ## 📁 Given File
@@ -131,6 +151,10 @@ This is the main star of our project, (Drum Rolls please)
 The malicious file that we gonna be Reverse engineer of
 
 - `example.exe` – suspected ransomware executable
+
+⚠️ WARNING ⚠️
+
+MAKE SURE TO CREATE A SNAPSHOT OF YOUR VIRTUAL MACHINE BEFOR RUNNING THE MALWARE, SO WE CAN REVERT AFTER BEING INFECTED
 
 ---
 

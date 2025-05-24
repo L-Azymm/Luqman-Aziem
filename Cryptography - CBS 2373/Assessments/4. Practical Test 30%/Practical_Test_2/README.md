@@ -1,5 +1,7 @@
 # 🔐 Cryptography - Malware Analysis
 
+![alt text](<Assets/other/banner (2).png>)
+
 Hello and Assalamualaikum!
 
 👾*Zymm*👾 is Back,

@@ -805,6 +805,12 @@ Finally you can see that the files that was encrypted before are now viewable an
 
 ### The Outcome of the WAR
 
+To Enable the Invader we can run the script with 
+
+```powershell
+  python invader_zymm.py
+```
+
 Lets the spoils of war tha our Invader has brought us
 
 ```powershell

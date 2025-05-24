@@ -807,8 +807,6 @@ Finally you can see that the files that was encrypted before are now viewable an
 
 Lets the spoils of war tha our Invader has brought us
 
-![alt text](Assets/7_outcome/py_inv_zymm.png)
-
 ```powershell
 PS C:\users\zymm\desktop\MALWARE>
 PS C:\users\zymm\desktop\MALWARE> python invader_zymm.py
